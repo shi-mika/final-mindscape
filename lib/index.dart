@@ -8,8 +8,7 @@ export '/client/home/myday/myday_widget.dart' show MydayWidget;
 export '/client/profile/profile/profile_widget.dart' show ProfileWidget;
 export '/authentication/loadingscreen/loadingscreen_widget.dart'
     show LoadingscreenWidget;
-export '/addtherapy/addtherapy_widget.dart' show AddtherapyWidget;
-export '/track/track_widget.dart' show TrackWidget;
+export '/client/home/track/track_widget.dart' show TrackWidget;
 export '/client/scan/scan1/scan1_widget.dart' show Scan1Widget;
 export '/authentication/create_account/create_account_widget.dart'
     show CreateAccountWidget;
@@ -45,7 +44,8 @@ export '/client/journal/greatfultodaycreate/greatfultodaycreate_widget.dart'
     show GreatfultodaycreateWidget;
 export '/client/journal/howwasyourdaycreate/howwasyourdaycreate_widget.dart'
     show HowwasyourdaycreateWidget;
-export '/therapy_vid/therapy_vid_widget.dart' show TherapyVidWidget;
+export '/client/therapy/therapy_vid/therapy_vid_widget.dart'
+    show TherapyVidWidget;
 export '/client/profile/editprofile/editprofile_widget.dart'
     show EditprofileWidget;
 export '/client/home/loadingindicatorhome/loadingindicatorhome_widget.dart'
@@ -56,3 +56,5 @@ export '/client/assessment/therapyquiz5/therapyquiz5_widget.dart'
     show Therapyquiz5Widget;
 export '/authentication/verification/verification_widget.dart'
     show VerificationWidget;
+export '/admin/admin_home/admin_home_widget.dart' show AdminHomeWidget;
+export '/mhp/mhp_home/mhp_home_widget.dart' show MhpHomeWidget;

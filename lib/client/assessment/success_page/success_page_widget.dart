@@ -63,13 +63,13 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                     alignment: const AlignmentDirectional(-1.22, -1.08),
                     child: Container(
                       width: 397.0,
-                      height: 487.0,
+                      height: 859.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: Image.network(
-                            'https://images.unsplash.com/photo-1601359865491-c47a8d93159d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwyMXx8Y2xvdWRzfGVufDB8fHx8MTY5NTUwNTIxOXww&ixlib=rb-4.0.3&q=80&w=1080',
+                          image: Image.asset(
+                            'assets/images/app_pics_(2).png',
                           ).image,
                         ),
                         borderRadius: BorderRadius.circular(40.0),

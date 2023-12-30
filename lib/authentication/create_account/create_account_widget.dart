@@ -575,7 +575,7 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                       username: _model
                                                           .usernameController
                                                           .text,
-                                                      password: '',
+                                                      role: 'client',
                                                     ));
 
                                                 await authManager

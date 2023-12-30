@@ -122,11 +122,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoadingscreenWidget(),
         ),
         FFRoute(
-          name: 'addtherapy',
-          path: '/addtherapy',
-          builder: (context, params) => const AddtherapyWidget(),
-        ),
-        FFRoute(
           name: 'track',
           path: '/track',
           builder: (context, params) => const TrackWidget(),
@@ -283,6 +278,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Verification',
           path: '/verification',
           builder: (context, params) => const VerificationWidget(),
+        ),
+        FFRoute(
+          name: 'admin_home',
+          path: '/adminHome',
+          builder: (context, params) => const AdminHomeWidget(),
+        ),
+        FFRoute(
+          name: 'mhp_home',
+          path: '/mhpHome',
+          builder: (context, params) => const MhpHomeWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

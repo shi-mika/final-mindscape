@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'addtherapy_widget.dart' show AddtherapyWidget;
+import 'admin_home_widget.dart' show AdminHomeWidget;
 import 'package:flutter/material.dart';
 
-class AddtherapyModel extends FlutterFlowModel<AddtherapyWidget> {
+class AdminHomeModel extends FlutterFlowModel<AdminHomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

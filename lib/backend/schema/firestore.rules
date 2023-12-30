@@ -19,7 +19,7 @@ service cloud.firestore {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if true;
+      allow delete: if request.auth.uid == resource.data.uid;
     }
 
     match /technique/{document} {
@@ -32,8 +32,8 @@ service cloud.firestore {
     match /emotion/{document} {
       allow create: if true;
       allow read: if true;
-      allow write: if true;
-      allow delete: if true;
+      allow write: if request.auth.uid == resource.data.uid;
+      allow delete: if request.auth.uid == resource.data.uid;
     }
   }
 }
