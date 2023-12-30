@@ -1,0 +1,13 @@
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-1.0.0-beta04-0 C:\Users\emika\.gradle\caches\transforms-3\4302cbc4039e6f3411a36ead1ad920c3\transformed\jetified-window-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-core-1.6.0-1 C:\Users\emika\.gradle\caches\transforms-3\d7dbc36764f0e3c571d6b4b097c4ba7d\transformed\core-1.6.0\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-annotation-experimental-1.1.0-2 C:\Users\emika\.gradle\caches\transforms-3\e2c459ee4a5ac6caca6812d1ff91c740\transformed\jetified-annotation-experimental-1.1.0\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-java-1.0.0-beta04-3 C:\Users\emika\.gradle\caches\transforms-3\ee9e8cfdcdde67b426c3238ff72dc028\transformed\jetified-window-java-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-main-4 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-6.1.1\android\src\main\res
+com.mr.flutter.plugin.filepicker.file_picker-release-5 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-6.1.1\android\src\release\res
+com.mr.flutter.plugin.filepicker.file_picker-pngs-6 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\generated\res\pngs\release
+com.mr.flutter.plugin.filepicker.file_picker-resValues-7 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\generated\res\resValues\release
+com.mr.flutter.plugin.filepicker.file_picker-rs-8 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\generated\res\rs\release
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-9 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-10 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.mr.flutter.plugin.filepicker.file_picker-merged_res-11 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\file_picker\intermediates\merged_res\release
+com.mr.flutter.plugin.filepicker.file_picker-packaged_res-12 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\release

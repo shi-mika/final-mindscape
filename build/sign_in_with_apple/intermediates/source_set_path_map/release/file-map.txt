@@ -1,0 +1,13 @@
+com.aboutyou.dart_packages.sign_in_with_apple-browser-1.2.0-0 C:\Users\emika\.gradle\caches\transforms-3\2db522d953261207bba624705144c8fb\transformed\browser-1.2.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-window-1.0.0-beta04-1 C:\Users\emika\.gradle\caches\transforms-3\4302cbc4039e6f3411a36ead1ad920c3\transformed\jetified-window-1.0.0-beta04\res
+com.aboutyou.dart_packages.sign_in_with_apple-core-1.6.0-2 C:\Users\emika\.gradle\caches\transforms-3\d7dbc36764f0e3c571d6b4b097c4ba7d\transformed\core-1.6.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-annotation-experimental-1.1.0-3 C:\Users\emika\.gradle\caches\transforms-3\e2c459ee4a5ac6caca6812d1ff91c740\transformed\jetified-annotation-experimental-1.1.0\res
+com.aboutyou.dart_packages.sign_in_with_apple-jetified-window-java-1.0.0-beta04-4 C:\Users\emika\.gradle\caches\transforms-3\ee9e8cfdcdde67b426c3238ff72dc028\transformed\jetified-window-java-1.0.0-beta04\res
+com.aboutyou.dart_packages.sign_in_with_apple-main-5 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\sign_in_with_apple-4.3.0\android\src\main\res
+com.aboutyou.dart_packages.sign_in_with_apple-release-6 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\sign_in_with_apple-4.3.0\android\src\release\res
+com.aboutyou.dart_packages.sign_in_with_apple-pngs-7 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\generated\res\pngs\release
+com.aboutyou.dart_packages.sign_in_with_apple-resValues-8 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\generated\res\resValues\release
+com.aboutyou.dart_packages.sign_in_with_apple-rs-9 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\generated\res\rs\release
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-10 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.aboutyou.dart_packages.sign_in_with_apple-mergeReleaseResources-11 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.aboutyou.dart_packages.sign_in_with_apple-merged_res-12 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sign_in_with_apple\intermediates\merged_res\release

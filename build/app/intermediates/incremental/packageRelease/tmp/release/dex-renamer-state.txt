@@ -1,0 +1,4 @@
+#Sat Dec 30 04:42:15 PST 2023
+base.0=D\:\\Users\\emika\\AndroidStudioProjects\\final-mindscape\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

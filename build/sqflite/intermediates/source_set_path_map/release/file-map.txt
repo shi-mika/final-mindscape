@@ -1,0 +1,12 @@
+com.tekartik.sqflite-jetified-window-1.0.0-beta04-0 C:\Users\emika\.gradle\caches\transforms-3\4302cbc4039e6f3411a36ead1ad920c3\transformed\jetified-window-1.0.0-beta04\res
+com.tekartik.sqflite-core-1.6.0-1 C:\Users\emika\.gradle\caches\transforms-3\d7dbc36764f0e3c571d6b4b097c4ba7d\transformed\core-1.6.0\res
+com.tekartik.sqflite-jetified-annotation-experimental-1.1.0-2 C:\Users\emika\.gradle\caches\transforms-3\e2c459ee4a5ac6caca6812d1ff91c740\transformed\jetified-annotation-experimental-1.1.0\res
+com.tekartik.sqflite-jetified-window-java-1.0.0-beta04-3 C:\Users\emika\.gradle\caches\transforms-3\ee9e8cfdcdde67b426c3238ff72dc028\transformed\jetified-window-java-1.0.0-beta04\res
+com.tekartik.sqflite-main-4 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite-2.2.6\android\src\main\res
+com.tekartik.sqflite-release-5 C:\Users\emika\AppData\Local\Pub\Cache\hosted\pub.dev\sqflite-2.2.6\android\src\release\res
+com.tekartik.sqflite-pngs-6 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\generated\res\pngs\release
+com.tekartik.sqflite-resValues-7 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\generated\res\resValues\release
+com.tekartik.sqflite-rs-8 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\generated\res\rs\release
+com.tekartik.sqflite-mergeReleaseResources-9 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.tekartik.sqflite-mergeReleaseResources-10 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.tekartik.sqflite-merged_res-11 D:\Users\emika\AndroidStudioProjects\final-mindscape\build\sqflite\intermediates\merged_res\release
