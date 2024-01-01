@@ -124,32 +124,32 @@ class FirebaseAuthManager extends AuthManager
 
   @override
   Future<BaseAuthUser?> signInWithEmail(
-    BuildContext context,
-    String email,
-    String password,
-  ) =>
+      BuildContext context,
+      String email,
+      String password,
+      ) =>
       _signInOrCreateAccount(
         context,
-        () => emailSignInFunc(email, password),
+            () => emailSignInFunc(email, password),
         'EMAIL',
       );
 
   @override
   Future<BaseAuthUser?> createAccountWithEmail(
-    BuildContext context,
-    String email,
-    String password,
-  ) =>
+      BuildContext context,
+      String email,
+      String password,
+      ) =>
       _signInOrCreateAccount(
         context,
-        () => emailCreateAccountFunc(email, password),
+            () => emailCreateAccountFunc(email, password),
         'EMAIL',
       );
 
   @override
   Future<BaseAuthUser?> signInAnonymously(
-    BuildContext context,
-  ) =>
+      BuildContext context,
+      ) =>
       _signInOrCreateAccount(context, anonymousSignInFunc, 'ANONYMOUS');
 
   @override
@@ -166,9 +166,9 @@ class FirebaseAuthManager extends AuthManager
 
   @override
   Future<BaseAuthUser?> signInWithJwtToken(
-    BuildContext context,
-    String jwtToken,
-  ) =>
+      BuildContext context,
+      String jwtToken,
+      ) =>
       _signInOrCreateAccount(context, () => jwtTokenSignIn(jwtToken), 'JWT');
 
   void handlePhoneAuthStateChanges(BuildContext context) {
@@ -200,7 +200,7 @@ class FirebaseAuthManager extends AuthManager
     phoneAuthManager.update(() => phoneAuthManager.onCodeSent = onCodeSent);
     if (kIsWeb) {
       phoneAuthManager.webPhoneAuthConfirmationResult =
-          await FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber);
+      await FirebaseAuth.instance.signInWithPhoneNumber(phoneNumber);
       phoneAuthManager.update(() => phoneAuthManager.triggerOnCodeSent = true);
       return;
     }
@@ -213,7 +213,7 @@ class FirebaseAuthManager extends AuthManager
     await FirebaseAuth.instance.verifyPhoneNumber(
       phoneNumber: phoneNumber,
       timeout:
-          const Duration(seconds: 0), // Skips Android's default auto-verification
+      const Duration(seconds: 0), // Skips Android's default auto-verification
       verificationCompleted: (phoneAuthCredential) async {
         await FirebaseAuth.instance.signInWithCredential(phoneAuthCredential);
         phoneAuthManager.update(() {
@@ -257,7 +257,7 @@ class FirebaseAuthManager extends AuthManager
     if (kIsWeb) {
       return _signInOrCreateAccount(
         context,
-        () => phoneAuthManager.webPhoneAuthConfirmationResult!.confirm(smsCode),
+            () => phoneAuthManager.webPhoneAuthConfirmationResult!.confirm(smsCode),
         'PHONE',
       );
     } else {
@@ -267,7 +267,7 @@ class FirebaseAuthManager extends AuthManager
       );
       return _signInOrCreateAccount(
         context,
-        () => FirebaseAuth.instance.signInWithCredential(authCredential),
+            () => FirebaseAuth.instance.signInWithCredential(authCredential),
         'PHONE',
       );
     }
@@ -276,10 +276,10 @@ class FirebaseAuthManager extends AuthManager
   /// Tries to sign in or create an account using Firebase Auth.
   /// Returns the User object if sign in was successful.
   Future<BaseAuthUser?> _signInOrCreateAccount(
-    BuildContext context,
-    Future<UserCredential?> Function() signInFunc,
-    String authProvider,
-  ) async {
+      BuildContext context,
+      Future<UserCredential?> Function() signInFunc,
+      String authProvider,
+      ) async {
     try {
       final userCredential = await signInFunc();
       if (userCredential?.user != null) {

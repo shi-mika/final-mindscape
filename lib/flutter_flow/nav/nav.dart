@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/auth/base_auth_user_provider.dart';
+import '../../auth/firebase_auth/auth_util.dart';
 
 import '/index.dart';
 import '/main.dart';
@@ -15,7 +15,20 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  AppStateNotifier._();
+  late Locale _locale;
+  late ThemeMode _themeMode;
+  late GoRouter _router;
+
+  // Constructor
+  AppStateNotifier._() {
+    _locale = const Locale('en', '');
+    _themeMode = ThemeMode.system;
+    _router = createRouter(this);
+  }
+
+  Locale get locale => _locale;
+  ThemeMode get themeMode => _themeMode;
+  GoRouter get router => _router;
 
   static AppStateNotifier? _instance;
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
@@ -65,20 +78,49 @@ class AppStateNotifier extends ChangeNotifier {
     showSplashImage = false;
     notifyListeners();
   }
+
+  void setLocale(Locale newLocale) {
+    _locale = newLocale;
+    notifyListeners();
+  }
+
+  void setThemeMode(ThemeMode newThemeMode) {
+    _themeMode = newThemeMode;
+    notifyListeners();
+  }
+
+  void updateRouter() {
+    _router = createRouter(this);
+    notifyListeners();
+  }
 }
 
 GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+      errorBuilder: (context, state) {
+        if (appStateNotifier.loggedIn) {
+          final bool isAdmin = currentUserDocument?.role == 'admin';
+          return isAdmin ? const NavBarPage(isAdmin: true) : const NavBarPage(isAdmin: false);
+        } else {
+          return const LoginWidget(); // If not logged in
+        }
+      },/*=>
+          appStateNotifier.loggedIn ? const NavBarPage(isAdmin:false) : const LoginWidget(),*/
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
+          builder: (context, _) {
+            if (appStateNotifier.loggedIn) {
+              final bool isAdmin = currentUserDocument?.role == 'admin';
+              return isAdmin ? const NavBarPage(isAdmin: true) : const NavBarPage(isAdmin: false);
+            } else {
+              return const LoginWidget(); // If not logged in
+            }
+          }/*=>
+              appStateNotifier.loggedIn ? const NavBarPage(isAdmin:true) : const AdminHomeWidget(),*/
         ),
         FFRoute(
           name: 'happy',
@@ -89,7 +131,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'journal',
           path: '/journal',
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'journal')
+              ? const NavBarPage(isAdmin:false, initialPage: 'journal')
               : const JournalWidget(),
         ),
         FFRoute(
@@ -101,7 +143,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'home',
           path: '/home',
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'home')
+              ? const NavBarPage(isAdmin:false, initialPage: 'home')
               : HomeWidget(
                   image: params.getParam('image', ParamType.String),
                 ),
@@ -150,7 +192,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'therapyClient',
           path: '/therapyClient',
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'therapyClient')
+              ? const NavBarPage(isAdmin:false, initialPage: 'therapyClient')
               : const TherapyClientWidget(),
         ),
         FFRoute(
@@ -200,14 +242,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'communities',
           path: '/communities',
           builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'communities')
+              ? const NavBarPage(isAdmin:false, initialPage: 'communities')
               : const CommunitiesWidget(),
         ),
         FFRoute(
           name: 'camv2',
           path: '/camv2',
           builder: (context, params) =>
-              params.isEmpty ? const NavBarPage(initialPage: 'camv2') : const Camv2Widget(),
+              params.isEmpty ? const NavBarPage(isAdmin:false, initialPage: 'camv2') : const Camv2Widget(),
         ),
         FFRoute(
           name: 'loadingindicator',
@@ -282,8 +324,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'admin_home',
           path: '/adminHome',
-          builder: (context, params) => const AdminHomeWidget(),
-        ),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(isAdmin:true, initialPage: 'admin_home')
+              : const AdminHomeWidget(),
+          ),
         FFRoute(
           name: 'mhp_home',
           path: '/mhpHome',

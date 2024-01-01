@@ -1,3 +1,5 @@
+import 'package:mindscape/backend/backend.dart';
+
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,6 +22,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isAdmin = false;
 
   @override
   void initState() {
@@ -380,6 +383,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                                     currentUserDocument?.role,
                                                     '') ==
                                                 'admin') {
+                                              isAdmin = true;
                                               if (loggedIn) {
                                                 context.goNamedAuth(
                                                     'admin_home',

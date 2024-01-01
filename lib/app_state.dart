@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/backend/backend.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -20,6 +21,11 @@ class FFAppState extends ChangeNotifier {
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
+  }
+
+  Future<void> saveUserRole(bool isAdmin) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isAdmin', isAdmin);
   }
 
   List<String> _routine = [
