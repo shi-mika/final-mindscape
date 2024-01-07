@@ -267,7 +267,7 @@ class _Therapy1WidgetState extends State<Therapy1Widget>
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.pushNamed(
+                            context.goNamed(
                               'therapy2',
                               extra: <String, dynamic>{
                                 kTransitionInfoKey: const TransitionInfo(
@@ -277,6 +277,10 @@ class _Therapy1WidgetState extends State<Therapy1Widget>
                                 ),
                               },
                             );
+
+                            setState(() {
+                              FFAppState().answers = [];
+                            });
                           },
                           text: 'next',
                           options: FFButtonOptions(

@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -136,7 +138,7 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.pushNamed(
+                          context.goNamed(
                             'home',
                             extra: <String, dynamic>{
                               kTransitionInfoKey: const TransitionInfo(
@@ -146,6 +148,18 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                               ),
                             },
                           );
+
+                          await AssessmentRecord.collection.doc().set({
+                            ...createAssessmentRecordData(
+                              uid: currentUserReference?.id,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'date': FieldValue.serverTimestamp(),
+                                'result': FFAppState().answers,
+                              },
+                            ),
+                          });
                         },
                         text: 'Go Home',
                         options: FFButtonOptions(

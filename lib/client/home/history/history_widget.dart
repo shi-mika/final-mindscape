@@ -244,6 +244,26 @@ class _HistoryWidgetState extends State<HistoryWidget> {
                                       ],
                                     ),
                                   ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            const AlignmentDirectional(0.0, 0.0),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 25.0, 0.0, 0.0),
+                                          child: Text(
+                                            dateTimeFormat('H:mm',
+                                                listViewEmotionRecord.date!),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(

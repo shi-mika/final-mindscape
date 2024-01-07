@@ -26,11 +26,6 @@ class TechniqueRecord extends FirestoreRecord {
   String get description => _description ?? '';
   bool hasDescription() => _description != null;
 
-  // "category" field.
-  String? _category;
-  String get category => _category ?? '';
-  bool hasCategory() => _category != null;
-
   // "order" field.
   int? _order;
   int get order => _order ?? 0;
@@ -51,14 +46,37 @@ class TechniqueRecord extends FirestoreRecord {
   DateTime? get date => _date;
   bool hasDate() => _date != null;
 
+  // "category" field.
+  List<String>? _category;
+  List<String> get category => _category ?? const [];
+  bool hasCategory() => _category != null;
+
+  // "content1" field.
+  String? _content1;
+  String get content1 => _content1 ?? '';
+  bool hasContent1() => _content1 != null;
+
+  // "content2" field.
+  String? _content2;
+  String get content2 => _content2 ?? '';
+  bool hasContent2() => _content2 != null;
+
+  // "content3" field.
+  String? _content3;
+  String get content3 => _content3 ?? '';
+  bool hasContent3() => _content3 != null;
+
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _description = snapshotData['description'] as String?;
-    _category = snapshotData['category'] as String?;
     _order = castToType<int>(snapshotData['order']);
     _cover = snapshotData['cover'] as String?;
     _techniqueName = snapshotData['technique_name'] as String?;
     _date = snapshotData['date'] as DateTime?;
+    _category = getDataList(snapshotData['category']);
+    _content1 = snapshotData['content1'] as String?;
+    _content2 = snapshotData['content2'] as String?;
+    _content3 = snapshotData['content3'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -98,21 +116,25 @@ class TechniqueRecord extends FirestoreRecord {
 Map<String, dynamic> createTechniqueRecordData({
   String? uid,
   String? description,
-  String? category,
   int? order,
   String? cover,
   String? techniqueName,
   DateTime? date,
+  String? content1,
+  String? content2,
+  String? content3,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'uid': uid,
       'description': description,
-      'category': category,
       'order': order,
       'cover': cover,
       'technique_name': techniqueName,
       'date': date,
+      'content1': content1,
+      'content2': content2,
+      'content3': content3,
     }.withoutNulls,
   );
 
@@ -124,24 +146,31 @@ class TechniqueRecordDocumentEquality implements Equality<TechniqueRecord> {
 
   @override
   bool equals(TechniqueRecord? e1, TechniqueRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.uid == e2?.uid &&
         e1?.description == e2?.description &&
-        e1?.category == e2?.category &&
         e1?.order == e2?.order &&
         e1?.cover == e2?.cover &&
         e1?.techniqueName == e2?.techniqueName &&
-        e1?.date == e2?.date;
+        e1?.date == e2?.date &&
+        listEquality.equals(e1?.category, e2?.category) &&
+        e1?.content1 == e2?.content1 &&
+        e1?.content2 == e2?.content2 &&
+        e1?.content3 == e2?.content3;
   }
 
   @override
   int hash(TechniqueRecord? e) => const ListEquality().hash([
         e?.uid,
         e?.description,
-        e?.category,
         e?.order,
         e?.cover,
         e?.techniqueName,
-        e?.date
+        e?.date,
+        e?.category,
+        e?.content1,
+        e?.content2,
+        e?.content3
       ]);
 
   @override

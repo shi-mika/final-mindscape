@@ -1,3 +1,4 @@
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -9,7 +10,12 @@ import 'therapy_vid_model.dart';
 export 'therapy_vid_model.dart';
 
 class TherapyVidWidget extends StatefulWidget {
-  const TherapyVidWidget({super.key});
+  const TherapyVidWidget({
+    super.key,
+    required this.pageref,
+  });
+
+  final TherapyRecord? pageref;
 
   @override
   _TherapyVidWidgetState createState() => _TherapyVidWidgetState();
@@ -89,18 +95,53 @@ class _TherapyVidWidgetState extends State<TherapyVidWidget> {
                     ],
                   ),
                 ),
-                const Align(
-                  alignment: AlignmentDirectional(-1.0, 0.0),
-                  child: FlutterFlowYoutubePlayer(
-                    url: 'https://youtu.be/le2IQrSKDF0?si=Shd-nJaVrFooUQfm',
-                    width: 576.0,
-                    height: 1135.0,
-                    autoPlay: false,
-                    looping: true,
-                    mute: false,
-                    showControls: true,
-                    showFullScreen: true,
-                    strictRelatedVideos: false,
+                Align(
+                  alignment: const AlignmentDirectional(-1.0, 0.0),
+                  child: StreamBuilder<List<TherapyRecord>>(
+                    stream: queryTherapyRecord(
+                      queryBuilder: (therapyRecord) => therapyRecord.where(
+                        'therapy_id',
+                        isEqualTo: widget.pageref?.therapyId,
+                      ),
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).primary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      List<TherapyRecord> youtubePlayerTherapyRecordList =
+                          snapshot.data!;
+                      // Return an empty Container when the item does not exist.
+                      if (snapshot.data!.isEmpty) {
+                        return Container();
+                      }
+                      final youtubePlayerTherapyRecord =
+                          youtubePlayerTherapyRecordList.isNotEmpty
+                              ? youtubePlayerTherapyRecordList.first
+                              : null;
+                      return FlutterFlowYoutubePlayer(
+                        url: youtubePlayerTherapyRecord!.content,
+                        width: 576.0,
+                        height: 1135.0,
+                        autoPlay: false,
+                        looping: true,
+                        mute: false,
+                        showControls: true,
+                        showFullScreen: true,
+                        strictRelatedVideos: false,
+                      );
+                    },
                   ),
                 ),
               ],

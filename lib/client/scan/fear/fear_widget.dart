@@ -90,7 +90,7 @@ class _FearWidgetState extends State<FearWidget> {
                     size: 40.0,
                   ),
                   onPressed: () async {
-                    context.pushNamed('scan1');
+                    context.pushNamed('home');
                   },
                 ),
               ),

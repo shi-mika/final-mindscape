@@ -4,6 +4,10 @@ import 'therapyquiz2_widget.dart' show Therapyquiz2Widget;
 import 'package:flutter/material.dart';
 
 class Therapyquiz2Model extends FlutterFlowModel<Therapyquiz2Widget> {
+  ///  Local state fields for this page.
+
+  String quiz2 = 'ans2';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

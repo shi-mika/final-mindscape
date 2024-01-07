@@ -163,6 +163,33 @@ class _RoutineWidgetState extends State<RoutineWidget> {
                 },
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                width: 453.0,
+                height: 45.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Align(
+                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            10.0, 5.0, 10.0, 0.0),
+                        child: Text(
+                          'today\'s journaling',
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
             Align(
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(

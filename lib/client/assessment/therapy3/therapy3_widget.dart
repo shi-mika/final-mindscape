@@ -259,7 +259,7 @@ class _Therapy3WidgetState extends State<Therapy3Widget>
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.safePop();
+                            context.pushNamed('therapy2');
                           },
                           text: 'back',
                           options: FFButtonOptions(
@@ -300,6 +300,10 @@ class _Therapy3WidgetState extends State<Therapy3Widget>
                               ),
                             },
                           );
+
+                          setState(() {
+                            FFAppState().addToAnswers('null');
+                          });
                         },
                         text: 'next',
                         options: FFButtonOptions(

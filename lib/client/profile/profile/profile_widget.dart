@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -166,67 +165,40 @@ class _ProfileWidgetState extends State<ProfileWidget>
                             child: Builder(
                               builder: (context) {
                                 if (currentUserPhoto != '') {
-                                  return StreamBuilder<List<UserRecord>>(
-                                    stream: queryUserRecord(
-                                      singleRecord: true,
+                                  return Container(
+                                    width: 120.0,
+                                    height: 120.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
                                     ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<UserRecord>
-                                          circleImageUserRecordList =
-                                          snapshot.data!;
-                                      // Return an empty Container when the item does not exist.
-                                      if (snapshot.data!.isEmpty) {
-                                        return Container();
-                                      }
-                                      final circleImageUserRecord =
-                                          circleImageUserRecordList.isNotEmpty
-                                              ? circleImageUserRecordList.first
-                                              : null;
-                                      return Container(
-                                        width: 120.0,
-                                        height: 120.0,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          currentUserPhoto,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
-                                    },
+                                    child: Image.network(
+                                      currentUserPhoto,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'assets/images/error_image.png',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   );
                                 } else {
                                   return Container(
-                                    width: 90.0,
-                                    height: 90.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                    width: 120.0,
+                                    height: 120.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.0),
-                                      child: Text(
-                                        'No Image',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                    child: Image.asset(
+                                      'assets/images/Windows_10_Default_Profile_Picture.svg.png',
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Image.asset(
+                                        'assets/images/error_image.png',
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   );
@@ -242,45 +214,15 @@ class _ProfileWidgetState extends State<ProfileWidget>
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
                   child: AuthUserStreamWidget(
-                    builder: (context) => StreamBuilder<List<UserRecord>>(
-                      stream: queryUserRecord(
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                        List<UserRecord> textUserRecordList = snapshot.data!;
-                        // Return an empty Container when the item does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final textUserRecord = textUserRecordList.isNotEmpty
-                            ? textUserRecordList.first
-                            : null;
-                        return Text(
-                          valueOrDefault(currentUserDocument?.username, ''),
-                          style: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
+                    builder: (context) => Text(
+                      valueOrDefault(currentUserDocument?.userName, ''),
+                      style:
+                          FlutterFlowTheme.of(context).headlineLarge.override(
                                 fontFamily: 'Urbanist',
                                 color: const Color(0xFF101213),
                                 fontSize: 32.0,
                                 fontWeight: FontWeight.w600,
                               ),
-                        );
-                      },
                     ),
                   ),
                 ),
@@ -378,57 +320,66 @@ class _ProfileWidgetState extends State<ProfileWidget>
                 Padding(
                   padding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 16.0, 0.0),
-                  child: Container(
-                    width: double.infinity,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 3.0,
-                          color: Color(0x33000000),
-                          offset: Offset(0.0, 1.0),
-                        )
-                      ],
-                      borderRadius: BorderRadius.circular(8.0),
-                      shape: BoxShape.rectangle,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const Icon(
-                            Icons.help_outline_rounded,
-                            color: Color(0xFF57636C),
-                            size: 24.0,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                12.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Mental Health Support',
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    fontFamily: 'Plus Jakarta Sans',
-                                    color: const Color(0xFF57636C),
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed('mentalhealthsupp');
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 3.0,
+                            color: Color(0x33000000),
+                            offset: Offset(0.0, 1.0),
+                          )
+                        ],
+                        borderRadius: BorderRadius.circular(8.0),
+                        shape: BoxShape.rectangle,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            const Icon(
+                              Icons.help_outline_rounded,
+                              color: Color(0xFF57636C),
+                              size: 24.0,
                             ),
-                          ),
-                          const Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0.9, 0.0),
-                              child: Icon(
-                                Icons.arrow_forward_ios,
-                                color: Color(0xFF57636C),
-                                size: 18.0,
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  12.0, 0.0, 0.0, 0.0),
+                              child: Text(
+                                'Mental Health Support',
+                                style: FlutterFlowTheme.of(context)
+                                    .labelLarge
+                                    .override(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: const Color(0xFF57636C),
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
                             ),
-                          ),
-                        ],
+                            const Expanded(
+                              child: Align(
+                                alignment: AlignmentDirectional(0.9, 0.0),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Color(0xFF57636C),
+                                  size: 18.0,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -3,7 +3,6 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -173,17 +172,12 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                           .usernameController,
                                                       focusNode: _model
                                                           .usernameFocusNode,
-                                                      onChanged: (_) =>
-                                                          EasyDebounce.debounce(
-                                                        '_model.usernameController',
-                                                        const Duration(
-                                                            milliseconds: 2000),
-                                                        () => setState(() {}),
-                                                      ),
-                                                      autofocus: true,
                                                       autofillHints: const [
                                                         AutofillHints.username
                                                       ],
+                                                      textCapitalization:
+                                                          TextCapitalization
+                                                              .none,
                                                       obscureText: false,
                                                       decoration:
                                                           InputDecoration(
@@ -275,6 +269,8 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
+                                                      keyboardType:
+                                                          TextInputType.name,
                                                       validator: _model
                                                           .usernameControllerValidator
                                                           .asValidator(context),
@@ -292,14 +288,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                           .emailAddressController,
                                                       focusNode: _model
                                                           .emailAddressFocusNode,
-                                                      onChanged: (_) =>
-                                                          EasyDebounce.debounce(
-                                                        '_model.emailAddressController',
-                                                        const Duration(
-                                                            milliseconds: 2000),
-                                                        () => setState(() {}),
-                                                      ),
-                                                      autofocus: true,
                                                       autofillHints: const [
                                                         AutofillHints.email
                                                       ],
@@ -416,14 +404,6 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                       _model.passwordController,
                                                   focusNode:
                                                       _model.passwordFocusNode,
-                                                  onChanged: (_) =>
-                                                      EasyDebounce.debounce(
-                                                    '_model.passwordController',
-                                                    const Duration(
-                                                        milliseconds: 2000),
-                                                    () => setState(() {}),
-                                                  ),
-                                                  autofocus: true,
                                                   autofillHints: const [
                                                     AutofillHints.password
                                                   ],
@@ -568,41 +548,41 @@ class _CreateAccountWidgetState extends State<CreateAccountWidget> {
                                                   return;
                                                 }
 
-                                                await UserRecord.collection
+                                                await UsersRecord.collection
                                                     .doc(user.uid)
-                                                    .update(
-                                                        createUserRecordData(
-                                                      username: _model
-                                                          .usernameController
-                                                          .text,
-                                                      role: 'client',
-                                                    ));
+                                                    .update({
+                                                  ...createUsersRecordData(
+                                                    role: 'client',
+                                                    email: _model
+                                                        .emailAddressController
+                                                        .text,
+                                                    userName: _model
+                                                        .usernameController
+                                                        .text,
+                                                    subscription: false,
+                                                    accountStatus: true,
+                                                  ),
+                                                  ...mapToFirestore(
+                                                    {
+                                                      'created_time': FieldValue
+                                                          .serverTimestamp(),
+                                                    },
+                                                  ),
+                                                });
 
                                                 await authManager
                                                     .sendEmailVerification();
 
                                                 context.goNamedAuth(
-                                                  'Verification',
-                                                  context.mounted,
-                                                  extra: <String, dynamic>{
-                                                    kTransitionInfoKey:
-                                                        const TransitionInfo(
-                                                      hasTransition: true,
-                                                      transitionType:
-                                                          PageTransitionType
-                                                              .fade,
-                                                      duration: Duration(
-                                                          milliseconds: 0),
-                                                    ),
-                                                  },
-                                                );
+                                                    'Verification',
+                                                    context.mounted);
 
                                                 setState(() {
-                                                  _model.passwordController
+                                                  _model.usernameController
                                                       ?.clear();
                                                   _model.emailAddressController
                                                       ?.clear();
-                                                  _model.usernameController
+                                                  _model.passwordController
                                                       ?.clear();
                                                 });
                                               },

@@ -141,7 +141,8 @@ class _Therapyquiz2WidgetState extends State<Therapyquiz2Widget>
                                   onChanged: (val) => setState(() {}),
                                   controller:
                                       _model.radioButtonValueController ??=
-                                          FormFieldController<String>(null),
+                                          FormFieldController<String>(
+                                              FFAppState().answers[1]),
                                   optionHeight: 50.0,
                                   textStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
@@ -187,6 +188,13 @@ class _Therapyquiz2WidgetState extends State<Therapyquiz2Widget>
                             ),
                           },
                         );
+
+                        setState(() {
+                          FFAppState().updateAnswersAtIndex(
+                            1,
+                            (_) => _model.radioButtonValue!,
+                          );
+                        });
                       },
                       text: 'back',
                       options: FFButtonOptions(
@@ -215,18 +223,30 @@ class _Therapyquiz2WidgetState extends State<Therapyquiz2Widget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(30.0, 32.0, 0.0, 32.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed(
-                          'therapyquiz3',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      },
+                      onPressed: (_model.radioButtonValue == 'null')
+                          ? null
+                          : () async {
+                              context.pushNamed(
+                                'therapyquiz3',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: const TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                  ),
+                                },
+                              );
+
+                              setState(() {
+                                FFAppState().updateAnswersAtIndex(
+                                  1,
+                                  (_) => _model.radioButtonValue!,
+                                );
+                              });
+                              setState(() {
+                                FFAppState().addToAnswers('null');
+                              });
+                            },
                       text: 'next',
                       options: FFButtonOptions(
                         width: 230.0,
@@ -247,6 +267,7 @@ class _Therapyquiz2WidgetState extends State<Therapyquiz2Widget>
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(40.0),
+                        disabledColor: FlutterFlowTheme.of(context).alternate,
                       ),
                     ),
                   ),

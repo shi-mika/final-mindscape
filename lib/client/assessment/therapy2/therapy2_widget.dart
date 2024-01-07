@@ -259,7 +259,7 @@ class _Therapy2WidgetState extends State<Therapy2Widget>
                             const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 16.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            context.safePop();
+                            context.pushNamed('therapy1');
                           },
                           text: 'back',
                           options: FFButtonOptions(

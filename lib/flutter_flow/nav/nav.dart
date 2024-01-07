@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '/backend/backend.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
@@ -93,17 +94,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const JournalWidget(),
         ),
         FFRoute(
-          name: 'therapyfront',
-          path: '/therapyfront',
-          builder: (context, params) => const TherapyfrontWidget(),
+          name: 'content1',
+          path: '/content1',
+          asyncParams: {
+            'pagerefer': getDoc(['technique'], TechniqueRecord.fromSnapshot),
+          },
+          builder: (context, params) => Content1Widget(
+            pagerefer: params.getParam('pagerefer', ParamType.Document),
+          ),
         ),
         FFRoute(
           name: 'home',
           path: '/home',
           builder: (context, params) => params.isEmpty
               ? const NavBarPage(initialPage: 'home')
-              : HomeWidget(
-                  image: params.getParam('image', ParamType.String),
+              : NavBarPage(
+                  initialPage: 'home',
+                  page: HomeWidget(
+                    image: params.getParam('image', ParamType.String),
+                  ),
                 ),
         ),
         FFRoute(
@@ -127,11 +136,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const TrackWidget(),
         ),
         FFRoute(
-          name: 'scan1',
-          path: '/scan1',
-          builder: (context, params) => const Scan1Widget(),
-        ),
-        FFRoute(
           name: 'CreateAccount',
           path: '/createAccount',
           builder: (context, params) => const CreateAccountWidget(),
@@ -145,13 +149,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ForgotPass',
           path: '/forgotPass',
           builder: (context, params) => const ForgotPassWidget(),
-        ),
-        FFRoute(
-          name: 'therapyClient',
-          path: '/therapyClient',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'therapyClient')
-              : const TherapyClientWidget(),
         ),
         FFRoute(
           name: 'gratefultodayupdate',
@@ -250,11 +247,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const HowwasyourdaycreateWidget(),
         ),
         FFRoute(
-          name: 'therapyVid',
-          path: '/therapyVid',
-          builder: (context, params) => const TherapyVidWidget(),
-        ),
-        FFRoute(
           name: 'Editprofile',
           path: '/editprofile',
           builder: (context, params) => const EditprofileWidget(),
@@ -288,6 +280,112 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'mhp_home',
           path: '/mhpHome',
           builder: (context, params) => const MhpHomeWidget(),
+        ),
+        FFRoute(
+          name: 'chat_2_Details',
+          path: '/chat2Details',
+          asyncParams: {
+            'chatRef': getDoc(['chats'], ChatsRecord.fromSnapshot),
+          },
+          builder: (context, params) => Chat2DetailsWidget(
+            chatRef: params.getParam('chatRef', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'chat_2_main',
+          path: '/chat2Main',
+          builder: (context, params) => const Chat2MainWidget(),
+        ),
+        FFRoute(
+          name: 'chat_2_InviteUsers',
+          path: '/chat2InviteUsers',
+          asyncParams: {
+            'chatRef': getDoc(['chats'], ChatsRecord.fromSnapshot),
+          },
+          builder: (context, params) => Chat2InviteUsersWidget(
+            chatRef: params.getParam('chatRef', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'image_Details',
+          path: '/imageDetails',
+          asyncParams: {
+            'chatMessage':
+                getDoc(['chat_messages'], ChatMessagesRecord.fromSnapshot),
+          },
+          builder: (context, params) => ImageDetailsWidget(
+            chatMessage: params.getParam('chatMessage', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'Mhpinvite',
+          path: '/mhpinvite',
+          asyncParams: {
+            'chatRef': getDoc(['chats'], ChatsRecord.fromSnapshot),
+          },
+          builder: (context, params) => MhpinviteWidget(
+            chatRef: params.getParam('chatRef', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'mentalhealthsupp',
+          path: '/mentalhealthsupp',
+          builder: (context, params) => const MentalhealthsuppWidget(),
+        ),
+        FFRoute(
+          name: 'therapyClient',
+          path: '/therapyClient',
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'therapyClient')
+              : const NavBarPage(
+                  initialPage: 'therapyClient',
+                  page: TherapyClientWidget(),
+                ),
+        ),
+        FFRoute(
+          name: 'therapyVid',
+          path: '/therapyVid',
+          asyncParams: {
+            'pageref': getDoc(['therapy'], TherapyRecord.fromSnapshot),
+          },
+          builder: (context, params) => TherapyVidWidget(
+            pageref: params.getParam('pageref', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'content2',
+          path: '/content2',
+          asyncParams: {
+            'pagerefer': getDoc(['technique'], TechniqueRecord.fromSnapshot),
+          },
+          builder: (context, params) => Content2Widget(
+            pagerefer: params.getParam('pagerefer', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'mentalhealthsuppCopy',
+          path: '/mentalhealthsuppCopy',
+          builder: (context, params) => const MentalhealthsuppCopyWidget(),
+        ),
+        FFRoute(
+          name: 'content3',
+          path: '/content3',
+          asyncParams: {
+            'pagerefer': getDoc(['technique'], TechniqueRecord.fromSnapshot),
+          },
+          builder: (context, params) => Content3Widget(
+            pagerefer: params.getParam('pagerefer', ParamType.Document),
+          ),
+        ),
+        FFRoute(
+          name: 'breath',
+          path: '/breath',
+          builder: (context, params) => const BreathWidget(),
+        ),
+        FFRoute(
+          name: 'meditation',
+          path: '/meditation',
+          builder: (context, params) => const MeditationWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

@@ -30,16 +30,16 @@ class EmotionRecord extends FirestoreRecord {
   String get emotion => _emotion ?? '';
   bool hasEmotion() => _emotion != null;
 
-  // "pic" field.
-  String? _pic;
-  String get pic => _pic ?? '';
-  bool hasPic() => _pic != null;
+  // "day" field.
+  String? _day;
+  String get day => _day ?? '';
+  bool hasDay() => _day != null;
 
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _date = snapshotData['date'] as DateTime?;
     _emotion = snapshotData['emotion'] as String?;
-    _pic = snapshotData['pic'] as String?;
+    _day = snapshotData['day'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -80,14 +80,14 @@ Map<String, dynamic> createEmotionRecordData({
   String? uid,
   DateTime? date,
   String? emotion,
-  String? pic,
+  String? day,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'uid': uid,
       'date': date,
       'emotion': emotion,
-      'pic': pic,
+      'day': day,
     }.withoutNulls,
   );
 
@@ -102,12 +102,12 @@ class EmotionRecordDocumentEquality implements Equality<EmotionRecord> {
     return e1?.uid == e2?.uid &&
         e1?.date == e2?.date &&
         e1?.emotion == e2?.emotion &&
-        e1?.pic == e2?.pic;
+        e1?.day == e2?.day;
   }
 
   @override
   int hash(EmotionRecord? e) =>
-      const ListEquality().hash([e?.uid, e?.date, e?.emotion, e?.pic]);
+      const ListEquality().hash([e?.uid, e?.date, e?.emotion, e?.day]);
 
   @override
   bool isValidKey(Object? o) => o is EmotionRecord;

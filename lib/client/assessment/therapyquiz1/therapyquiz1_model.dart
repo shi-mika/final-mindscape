@@ -4,9 +4,14 @@ import 'therapyquiz1_widget.dart' show Therapyquiz1Widget;
 import 'package:flutter/material.dart';
 
 class Therapyquiz1Model extends FlutterFlowModel<Therapyquiz1Widget> {
+  ///  Local state fields for this page.
+
+  String quiz1 = 'ans1';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  final formKey = GlobalKey<FormState>();
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonValueController;
 

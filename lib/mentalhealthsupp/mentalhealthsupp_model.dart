@@ -1,8 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'scan1_widget.dart' show Scan1Widget;
+import 'mentalhealthsupp_widget.dart' show MentalhealthsuppWidget;
 import 'package:flutter/material.dart';
 
-class Scan1Model extends FlutterFlowModel<Scan1Widget> {
+class MentalhealthsuppModel extends FlutterFlowModel<MentalhealthsuppWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

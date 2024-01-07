@@ -373,7 +373,7 @@ class _PicprofileWidgetState extends State<PicprofileWidget>
                                       child: FFButtonWidget(
                                         onPressed: () async {
                                           await currentUserReference!
-                                              .update(createUserRecordData(
+                                              .update(createUsersRecordData(
                                             photoUrl: _model.uploadedFileUrl,
                                           ));
 

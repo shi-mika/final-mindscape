@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'verification_model.dart';
 export 'verification_model.dart';
 
@@ -133,8 +134,29 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                                       onPressed: () async {
                                         await authManager.refreshUser();
                                         if (currentUserEmailVerified) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return WebViewAware(
+                                                  child: AlertDialog(
+                                                title:
+                                                    const Text('Email verification'),
+                                                content: const Text(
+                                                    'Well done! Your email has been verified.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: const Text('Ok'),
+                                                  ),
+                                                ],
+                                              ));
+                                            },
+                                          );
+
                                           context.goNamed(
-                                            'home',
+                                            'therapy1',
                                             extra: <String, dynamic>{
                                               kTransitionInfoKey:
                                                   const TransitionInfo(
@@ -145,25 +167,6 @@ class _VerificationWidgetState extends State<VerificationWidget> {
                                                     Duration(milliseconds: 0),
                                               ),
                                             },
-                                          );
-
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'welcome!',
-                                                style: TextStyle(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                ),
-                                              ),
-                                              duration:
-                                                  const Duration(milliseconds: 3000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                            ),
                                           );
                                         } else {
                                           ScaffoldMessenger.of(context)

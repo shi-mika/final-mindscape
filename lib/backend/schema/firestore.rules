@@ -1,18 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /user/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if request.auth.uid == document;
-      allow delete: if false;
-    }
-
     match /journal/{document} {
       allow create: if request.auth.uid == request.resource.data.uid;
       allow read: if request.auth.uid == resource.data.uid;
       allow write: if request.auth.uid == resource.data.uid;
-      allow delete: if request.auth.uid == resource.data.uid;
+      allow delete: if true;
     }
 
     match /community/{document} {
@@ -34,6 +27,62 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth.uid == resource.data.uid;
       allow delete: if request.auth.uid == resource.data.uid;
+    }
+
+    match /assessment/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if request.auth.uid == resource.data.uid;
+    }
+
+    match /comment2/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /users/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chat_messages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chats/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /therapy/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /students/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if false;
+    }
+
+    match /cbt_technique/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
     }
   }
 }

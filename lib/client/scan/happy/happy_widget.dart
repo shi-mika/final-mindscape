@@ -118,7 +118,7 @@ class _HappyWidgetState extends State<HappyWidget>
                     size: 40.0,
                   ),
                   onPressed: () async {
-                    context.pushNamed('scan1');
+                    context.pushNamed('home');
                   },
                 ),
               ),
@@ -130,7 +130,7 @@ class _HappyWidgetState extends State<HappyWidget>
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    context.pushNamed('scan1');
+                    context.pushNamed('home');
                   },
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),

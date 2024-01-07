@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/backend.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 
 class FFAppState extends ChangeNotifier {
   static FFAppState _instance = FFAppState._internal();
@@ -24,7 +24,7 @@ class FFAppState extends ChangeNotifier {
 
   List<String> _routine = [
     'today\'s \naffirmation\n\n1 min',
-    'today\'s breathing \nexercise\n\n5 mins',
+    'today\'s breathing \nexercise\n\n1 min',
     'today\'s guided\nmeditation\n\n6 mins'
   ];
   List<String> get routine => _routine;
@@ -89,6 +89,85 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInImage(int index, String value) {
     _image.insert(index, value);
   }
+
+  List<String> _answers = [];
+  List<String> get answers => _answers;
+  set answers(List<String> value) {
+    _answers = value;
+  }
+
+  void addToAnswers(String value) {
+    _answers.add(value);
+  }
+
+  void removeFromAnswers(String value) {
+    _answers.remove(value);
+  }
+
+  void removeAtIndexFromAnswers(int index) {
+    _answers.removeAt(index);
+  }
+
+  void updateAnswersAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    _answers[index] = updateFn(_answers[index]);
+  }
+
+  void insertAtIndexInAnswers(int index, String value) {
+    _answers.insert(index, value);
+  }
+
+  List<String> _usersLiked = [];
+  List<String> get usersLiked => _usersLiked;
+  set usersLiked(List<String> value) {
+    _usersLiked = value;
+  }
+
+  void addToUsersLiked(String value) {
+    _usersLiked.add(value);
+  }
+
+  void removeFromUsersLiked(String value) {
+    _usersLiked.remove(value);
+  }
+
+  void removeAtIndexFromUsersLiked(int index) {
+    _usersLiked.removeAt(index);
+  }
+
+  void updateUsersLikedAtIndex(
+    int index,
+    String Function(String) updateFn,
+  ) {
+    _usersLiked[index] = updateFn(_usersLiked[index]);
+  }
+
+  void insertAtIndexInUsersLiked(int index, String value) {
+    _usersLiked.insert(index, value);
+  }
+
+  bool _isFavorite = false;
+  bool get isFavorite => _isFavorite;
+  set isFavorite(bool value) {
+    _isFavorite = value;
+  }
+
+  final _userDocQueryManager = FutureRequestManager<UsersRecord>();
+  Future<UsersRecord> userDocQuery({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<UsersRecord> Function() requestFn,
+  }) =>
+      _userDocQueryManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearUserDocQueryCache() => _userDocQueryManager.clear();
+  void clearUserDocQueryCacheKey(String? uniqueKey) =>
+      _userDocQueryManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

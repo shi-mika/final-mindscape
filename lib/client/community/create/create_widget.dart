@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -67,7 +68,7 @@ class _CreateWidgetState extends State<CreateWidget>
     _model = createModel(context, () => CreateModel());
 
     _model.byController ??= TextEditingController(
-        text: valueOrDefault(currentUserDocument?.username, ''));
+        text: valueOrDefault(currentUserDocument?.userName, ''));
     _model.byFocusNode ??= FocusNode();
 
     _model.projectNameController ??= TextEditingController();
@@ -189,147 +190,102 @@ class _CreateWidgetState extends State<CreateWidget>
                                                           8.0, 0.0, 8.0, 0.0),
                                                   child: AuthUserStreamWidget(
                                                     builder: (context) =>
-                                                        StreamBuilder<
-                                                            List<UserRecord>>(
-                                                      stream: queryUserRecord(
-                                                        singleRecord: true,
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  CircularProgressIndicator(
-                                                                valueColor:
-                                                                    AlwaysStoppedAnimation<
-                                                                        Color>(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
+                                                        TextFormField(
+                                                      controller:
+                                                          _model.byController,
+                                                      focusNode:
+                                                          _model.byFocusNode,
+                                                      readOnly: true,
+                                                      obscureText: false,
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium,
+                                                        hintStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Readex Pro',
+                                                                  color: Colors
+                                                                      .white,
                                                                 ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        List<UserRecord>
-                                                            byUserRecordList =
-                                                            snapshot.data!;
-                                                        // Return an empty Container when the item does not exist.
-                                                        if (snapshot
-                                                            .data!.isEmpty) {
-                                                          return Container();
-                                                        }
-                                                        final byUserRecord =
-                                                            byUserRecordList
-                                                                    .isNotEmpty
-                                                                ? byUserRecordList
-                                                                    .first
-                                                                : null;
-                                                        return TextFormField(
-                                                          controller: _model
-                                                              .byController,
-                                                          focusNode: _model
-                                                              .byFocusNode,
-                                                          autofocus: true,
-                                                          readOnly: true,
-                                                          obscureText: false,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            labelStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium,
-                                                            hintStyle:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Readex Pro',
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                            enabledBorder:
-                                                                UnderlineInputBorder(
-                                                              borderSide:
-                                                                  const BorderSide(
-                                                                color: Color(
-                                                                    0x00000000),
-                                                                width: 2.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          0.0),
-                                                            ),
-                                                            focusedBorder:
-                                                                UnderlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 2.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          0.0),
-                                                            ),
-                                                            errorBorder:
-                                                                UnderlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                                width: 2.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          0.0),
-                                                            ),
-                                                            focusedErrorBorder:
-                                                                UnderlineInputBorder(
-                                                              borderSide:
-                                                                  BorderSide(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                                width: 2.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          0.0),
-                                                            ),
+                                                        enabledBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              const BorderSide(
+                                                            color: Color(
+                                                                0x00000000),
+                                                            width: 2.0,
                                                           ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Readex Pro',
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                          validator: _model
-                                                              .byControllerValidator
-                                                              .asValidator(
-                                                                  context),
-                                                        );
-                                                      },
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        focusedBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        errorBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            width: 2.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                        focusedErrorBorder:
+                                                            UnderlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            width: 2.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                        ),
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Readex Pro',
+                                                            color: Colors.white,
+                                                          ),
+                                                      validator: _model
+                                                          .byControllerValidator
+                                                          .asValidator(context),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                              StreamBuilder<List<UserRecord>>(
-                                                stream: queryUserRecord(
+                                              StreamBuilder<List<UsersRecord>>(
+                                                stream: queryUsersRecord(
                                                   singleRecord: true,
                                                 ),
                                                 builder: (context, snapshot) {
@@ -352,17 +308,17 @@ class _CreateWidgetState extends State<CreateWidget>
                                                       ),
                                                     );
                                                   }
-                                                  List<UserRecord>
-                                                      piUserRecordList =
+                                                  List<UsersRecord>
+                                                      piUsersRecordList =
                                                       snapshot.data!;
                                                   // Return an empty Container when the item does not exist.
                                                   if (snapshot.data!.isEmpty) {
                                                     return Container();
                                                   }
-                                                  final piUserRecord =
-                                                      piUserRecordList
+                                                  final piUsersRecord =
+                                                      piUsersRecordList
                                                               .isNotEmpty
-                                                          ? piUserRecordList
+                                                          ? piUsersRecordList
                                                               .first
                                                           : null;
                                                   return Container(
@@ -374,7 +330,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: Image.network(
-                                                      piUserRecord!.photoUrl,
+                                                      piUsersRecord!.photoUrl,
                                                       fit: BoxFit.cover,
                                                     ),
                                                   );
@@ -779,6 +735,9 @@ class _CreateWidgetState extends State<CreateWidget>
                                               userCreater:
                                                   _model.byController.text,
                                               photoId: currentUserPhoto,
+                                              liked: false,
+                                              day: functions
+                                                  .newCustomDayFunction(),
                                             ),
                                             ...mapToFirestore(
                                               {

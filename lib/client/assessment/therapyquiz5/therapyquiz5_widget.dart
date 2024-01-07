@@ -141,7 +141,8 @@ class _Therapyquiz5WidgetState extends State<Therapyquiz5Widget>
                                   onChanged: (val) => setState(() {}),
                                   controller:
                                       _model.radioButtonValueController ??=
-                                          FormFieldController<String>(null),
+                                          FormFieldController<String>(
+                                              FFAppState().answers[4]),
                                   optionHeight: 50.0,
                                   textStyle:
                                       FlutterFlowTheme.of(context).labelMedium,
@@ -178,7 +179,7 @@ class _Therapyquiz5WidgetState extends State<Therapyquiz5Widget>
                     child: FFButtonWidget(
                       onPressed: () async {
                         context.pushNamed(
-                          'therapyquiz2',
+                          'therapyquiz4',
                           extra: <String, dynamic>{
                             kTransitionInfoKey: const TransitionInfo(
                               hasTransition: true,
@@ -187,6 +188,13 @@ class _Therapyquiz5WidgetState extends State<Therapyquiz5Widget>
                             ),
                           },
                         );
+
+                        setState(() {
+                          FFAppState().updateAnswersAtIndex(
+                            4,
+                            (_) => _model.radioButtonValue!,
+                          );
+                        });
                       },
                       text: 'back',
                       options: FFButtonOptions(
@@ -215,9 +223,23 @@ class _Therapyquiz5WidgetState extends State<Therapyquiz5Widget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(30.0, 32.0, 0.0, 32.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed('SuccessPage');
-                      },
+                      onPressed: (_model.radioButtonValue == 'null')
+                          ? null
+                          : () async {
+                              context.goNamed('SuccessPage');
+
+                              setState(() {
+                                FFAppState().updateAnswersAtIndex(
+                                  4,
+                                  (_) => _model.radioButtonValue!,
+                                );
+                              });
+                              while (FFAppState().answers.contains('null')) {
+                                setState(() {
+                                  FFAppState().removeFromAnswers('null');
+                                });
+                              }
+                            },
                       text: 'finish',
                       options: FFButtonOptions(
                         width: 230.0,
@@ -238,6 +260,7 @@ class _Therapyquiz5WidgetState extends State<Therapyquiz5Widget>
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(40.0),
+                        disabledColor: FlutterFlowTheme.of(context).alternate,
                       ),
                     ),
                   ),

@@ -109,6 +109,9 @@ class _DeletecommunityWidgetState extends State<DeletecommunityWidget> {
                   return FFButtonWidget(
                     onPressed: () async {
                       await buttonCommunityRecord!.reference.delete();
+                      Navigator.pop(context);
+
+                      context.pushNamed('communities');
                     },
                     text: 'Delete ',
                     options: FFButtonOptions(

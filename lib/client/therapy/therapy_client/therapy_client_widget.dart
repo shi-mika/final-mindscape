@@ -1,12 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/client/therapy/emptytherapy/emptytherapy_widget.dart';
 import '/client/therapy/history_therapy/history_therapy_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -128,52 +128,13 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 15.0, 0.0, 0.0),
                                             child: AuthUserStreamWidget(
-                                              builder: (context) =>
-                                                  StreamBuilder<
-                                                      List<UserRecord>>(
-                                                stream: queryUserRecord(
-                                                  singleRecord: true,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            CircularProgressIndicator(
-                                                          valueColor:
-                                                              AlwaysStoppedAnimation<
-                                                                  Color>(
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  List<UserRecord>
-                                                      textUserRecordList =
-                                                      snapshot.data!;
-                                                  // Return an empty Container when the item does not exist.
-                                                  if (snapshot.data!.isEmpty) {
-                                                    return Container();
-                                                  }
-                                                  final textUserRecord =
-                                                      textUserRecordList
-                                                              .isNotEmpty
-                                                          ? textUserRecordList
-                                                              .first
-                                                          : null;
-                                                  return Text(
-                                                    valueOrDefault(
-                                                        currentUserDocument
-                                                            ?.username,
-                                                        ''),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
+                                              builder: (context) => Text(
+                                                valueOrDefault(
+                                                    currentUserDocument
+                                                        ?.userName,
+                                                    ''),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
                                                         .headlineLarge
                                                         .override(
                                                           fontFamily:
@@ -182,8 +143,6 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
-                                                  );
-                                                },
                                               ),
                                             ),
                                           ),
@@ -221,6 +180,7 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                     100.0, 0.0, 0.0, 0.0),
                                             child: FlutterFlowIconButton(
                                               borderColor: Colors.transparent,
+                                              borderRadius: 30.0,
                                               borderWidth: 1.0,
                                               buttonSize: 40.0,
                                               icon: Icon(
@@ -323,10 +283,9 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                           child: FlutterFlowChoiceChips(
                             options: const [
                               ChipData('All', Icons.check),
-                              ChipData('Relationship', Icons.favorite),
-                              ChipData('Work', Icons.work),
-                              ChipData('Finance', FontAwesomeIcons.seedling),
-                              ChipData('Self', Icons.person)
+                              ChipData('stress', Icons.favorite),
+                              ChipData('depression', Icons.work),
+                              ChipData('anxiety', FontAwesomeIcons.seedling)
                             ],
                             onChanged: (val) => setState(
                                 () => _model.choiceChipsValue = val?.first),
@@ -405,8 +364,13 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                               child: StreamBuilder<List<TechniqueRecord>>(
                                 stream: queryTechniqueRecord(
                                   queryBuilder: (techniqueRecord) =>
-                                      techniqueRecord.orderBy('date',
-                                          descending: true),
+                                      techniqueRecord
+                                          .where(
+                                            'category',
+                                            arrayContains:
+                                                _model.choiceChipsValue,
+                                          )
+                                          .orderBy('date', descending: true),
                                   limit: 4,
                                 ),
                                 builder: (context, snapshot) {
@@ -429,6 +393,11 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                   List<TechniqueRecord>
                                       listViewTechniqueRecordList =
                                       snapshot.data!;
+                                  if (listViewTechniqueRecordList.isEmpty) {
+                                    return const Center(
+                                      child: EmptytherapyWidget(),
+                                    );
+                                  }
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     scrollDirection: Axis.horizontal,
@@ -447,33 +416,114 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                         ),
                                         child: Stack(
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      20.0, 0.0, 0.0, 0.0),
-                                              child: InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                      'therapyfront');
-                                                },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                  child: Image.network(
-                                                    listViewTechniqueRecord
-                                                        .cover,
-                                                    width: 393.0,
-                                                    height: 200.0,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
+                                            Builder(
+                                              builder: (context) {
+                                                if (listViewTechniqueRecord
+                                                            .cover !=
+                                                        '') {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(20.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'content2',
+                                                          queryParameters: {
+                                                            'pagerefer':
+                                                                serializeParam(
+                                                              listViewTechniqueRecord,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'pagerefer':
+                                                                listViewTechniqueRecord,
+                                                          },
+                                                        );
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        child: Image.network(
+                                                          listViewTechniqueRecord
+                                                              .cover,
+                                                          width: 393.0,
+                                                          height: 200.0,
+                                                          fit: BoxFit.cover,
+                                                          errorBuilder: (context,
+                                                                  error,
+                                                                  stackTrace) =>
+                                                              Image.asset(
+                                                            'assets/images/error_image.png',
+                                                            width: 393.0,
+                                                            height: 200.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  return Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(20.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                          'content2',
+                                                          queryParameters: {
+                                                            'pagerefer':
+                                                                serializeParam(
+                                                              listViewTechniqueRecord,
+                                                              ParamType
+                                                                  .Document,
+                                                            ),
+                                                          }.withoutNulls,
+                                                          extra: <String,
+                                                              dynamic>{
+                                                            'pagerefer':
+                                                                listViewTechniqueRecord,
+                                                          },
+                                                        );
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        child: Image.asset(
+                                                          'assets/images/no_image.png',
+                                                          width: 393.0,
+                                                          height: 200.0,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                              },
                                             ),
                                             Align(
                                               alignment: const AlignmentDirectional(
@@ -486,7 +536,19 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                     Colors.transparent,
                                                 onTap: () async {
                                                   context.pushNamed(
-                                                      'therapyfront');
+                                                    'content2',
+                                                    queryParameters: {
+                                                      'pagerefer':
+                                                          serializeParam(
+                                                        listViewTechniqueRecord,
+                                                        ParamType.Document,
+                                                      ),
+                                                    }.withoutNulls,
+                                                    extra: <String, dynamic>{
+                                                      'pagerefer':
+                                                          listViewTechniqueRecord,
+                                                    },
+                                                  );
                                                 },
                                                 child: Column(
                                                   mainAxisSize:
@@ -587,78 +649,106 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                 0.0, 15.0, 0.0, 0.0),
                             child: Container(
                               width: 436.0,
-                              height: 360.0,
+                              height: 572.0,
                               decoration: const BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
+                              child: StreamBuilder<List<TherapyRecord>>(
+                                stream: queryTherapyRecord(
+                                  queryBuilder: (therapyRecord) =>
+                                      therapyRecord.where(
+                                    'category',
+                                    arrayContains: _model.choiceChipsValue,
+                                  ),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: CircularProgressIndicator(
+                                          valueColor:
+                                              AlwaysStoppedAnimation<Color>(
+                                            FlutterFlowTheme.of(context)
+                                                .primary,
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<TherapyRecord> wrapTherapyRecordList =
+                                      snapshot.data!;
+                                  return Wrap(
+                                    spacing: 0.0,
+                                    runSpacing: 0.0,
+                                    alignment: WrapAlignment.start,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.start,
+                                    direction: Axis.vertical,
+                                    runAlignment: WrapAlignment.spaceEvenly,
+                                    verticalDirection: VerticalDirection.down,
+                                    clipBehavior: Clip.none,
+                                    children: List.generate(
+                                        wrapTherapyRecordList.length,
+                                        (wrapIndex) {
+                                      final wrapTherapyRecord =
+                                          wrapTherapyRecordList[wrapIndex];
+                                      return Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
                                             15.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: 170.0,
-                                          height: 170.0,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0x000F1113),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    1.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                              'therapyVid',
-                                                              extra: <String,
-                                                                  dynamic>{
-                                                                kTransitionInfoKey:
-                                                                    const TransitionInfo(
-                                                                  hasTransition:
-                                                                      true,
-                                                                  transitionType:
-                                                                      PageTransitionType
-                                                                          .fade,
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          0),
-                                                                ),
-                                                              },
-                                                            );
-                                                          },
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context.pushNamed(
+                                              'therapyVid',
+                                              queryParameters: {
+                                                'pageref': serializeParam(
+                                                  wrapTherapyRecord,
+                                                  ParamType.Document,
+                                                ),
+                                              }.withoutNulls,
+                                              extra: <String, dynamic>{
+                                                'pageref': wrapTherapyRecord,
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 170.0,
+                                            height: 170.0,
+                                            decoration: const BoxDecoration(
+                                              color: Color(0x000F1113),
+                                            ),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Stack(
+                                                    children: [
+                                                      Align(
+                                                        alignment:
+                                                            const AlignmentDirectional(
+                                                                0.0, 0.0),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      1.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
                                                           child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         8.0),
-                                                            child: Image.asset(
-                                                              'assets/images/anxiety.png',
+                                                            child:
+                                                                Image.network(
+                                                              'https://images.unsplash.com/photo-1588001832198-c15cff59b078?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxzdW5zZXR8ZW58MHx8fHwxNzA0NDc5Mzk2fDA&ixlib=rb-4.0.3&q=80&w=1080',
                                                               width: double
                                                                   .infinity,
                                                               height: double
@@ -668,247 +758,39 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 8.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Therapy for Anxiety',
-                                                  textAlign: TextAlign.start,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        fontSize: 17.0,
-                                                      ),
-                                                ),
-                                              ),
-                                              Text(
-                                                '2 mins',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: 170.0,
-                                          height: 170.0,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0x000F1113),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child:
-                                                            CachedNetworkImage(
-                                                          fadeInDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      500),
-                                                          fadeOutDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      500),
-                                                          imageUrl:
-                                                              'https://picsum.photos/seed/68/600',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 8.0, 0.0, 0.0),
+                                                  child: Text(
+                                                    wrapTherapyRecord.name,
+                                                    textAlign: TextAlign.start,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleLarge
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          fontSize: 17.0,
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 8.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'Care for Depression',
+                                                Text(
+                                                  wrapTherapyRecord.minute,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
-                                                        fontSize: 17.0,
-                                                      ),
+                                                      .bodyMedium,
                                                 ),
-                                              ),
-                                              Text(
-                                                '5-10 mins',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            15.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: 170.0,
-                                          height: 170.0,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0x000F1113),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.network(
-                                                          'https://picsum.photos/seed/91/600',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 8.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'calm qoutes',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        fontSize: 17.0,
-                                                      ),
-                                                ),
-                                              ),
-                                              Text(
-                                                '3-5 mins',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 15.0, 0.0),
-                                        child: Container(
-                                          width: 170.0,
-                                          height: 170.0,
-                                          decoration: const BoxDecoration(
-                                            color: Color(0x000F1113),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Stack(
-                                                  children: [
-                                                    Align(
-                                                      alignment:
-                                                          const AlignmentDirectional(
-                                                              0.0, 0.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.network(
-                                                          'https://picsum.photos/seed/91/600',
-                                                          width:
-                                                              double.infinity,
-                                                          height:
-                                                              double.infinity,
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 8.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'calm qoutes',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
-                                                        fontFamily: 'Outfit',
-                                                        fontSize: 17.0,
-                                                      ),
-                                                ),
-                                              ),
-                                              Text(
-                                                '3-5 mins',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                      );
+                                    }),
+                                  );
+                                },
                               ),
                             ),
                           ),

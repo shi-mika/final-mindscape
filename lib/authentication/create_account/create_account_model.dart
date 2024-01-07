@@ -16,8 +16,8 @@ class CreateAccountModel extends FlutterFlowModel<CreateAccountWidget> {
       return 'Field is required';
     }
 
-    if (!RegExp('^[A-Za-z]+\$').hasMatch(val)) {
-      return 'Enter characters only';
+    if (!RegExp(kTextValidatorUsernameRegex).hasMatch(val)) {
+      return 'Must start with a letter and can only contain letters, digits and - or _.';
     }
     return null;
   }

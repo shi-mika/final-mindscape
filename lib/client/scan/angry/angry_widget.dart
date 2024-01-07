@@ -100,7 +100,7 @@ class _AngryWidgetState extends State<AngryWidget> {
                     size: 40.0,
                   ),
                   onPressed: () async {
-                    context.pushNamed('scan1');
+                    context.pushNamed('home');
                   },
                 ),
               ),

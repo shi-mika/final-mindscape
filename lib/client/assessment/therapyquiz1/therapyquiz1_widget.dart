@@ -113,7 +113,7 @@ class _Therapyquiz1WidgetState extends State<Therapyquiz1Widget>
                           style:
                               FlutterFlowTheme.of(context).bodyLarge.override(
                                     fontFamily: 'Readex Pro',
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w300,
                                   ),
                         ),
                       ),
@@ -142,33 +142,38 @@ class _Therapyquiz1WidgetState extends State<Therapyquiz1Widget>
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                FlutterFlowRadioButton(
-                                  options: [
-                                    'Not at all',
-                                    'Rare, less than a day or two',
-                                    'Several days',
-                                    'More than half the days',
-                                    'Nearly every day'
-                                  ].toList(),
-                                  onChanged: (val) => setState(() {}),
-                                  controller:
-                                      _model.radioButtonValueController ??=
-                                          FormFieldController<String>(null),
-                                  optionHeight: 50.0,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  selectedTextStyle:
-                                      FlutterFlowTheme.of(context).titleLarge,
-                                  buttonPosition: RadioButtonPosition.left,
-                                  direction: Axis.vertical,
-                                  radioButtonColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  inactiveRadioButtonColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                  toggleable: false,
-                                  horizontalAlignment: WrapAlignment.start,
-                                  verticalAlignment: WrapCrossAlignment.start,
+                                Form(
+                                  key: _model.formKey,
+                                  autovalidateMode: AutovalidateMode.always,
+                                  child: FlutterFlowRadioButton(
+                                    options: [
+                                      'Not at all',
+                                      'Rare, less than a day or two',
+                                      'Several days',
+                                      'More than half the days',
+                                      'Nearly every day'
+                                    ].toList(),
+                                    onChanged: (val) => setState(() {}),
+                                    controller:
+                                        _model.radioButtonValueController ??=
+                                            FormFieldController<String>(
+                                                FFAppState().answers[0]),
+                                    optionHeight: 50.0,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    selectedTextStyle:
+                                        FlutterFlowTheme.of(context).titleLarge,
+                                    buttonPosition: RadioButtonPosition.left,
+                                    direction: Axis.vertical,
+                                    radioButtonColor:
+                                        FlutterFlowTheme.of(context).primary,
+                                    inactiveRadioButtonColor:
+                                        FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    toggleable: true,
+                                    horizontalAlignment: WrapAlignment.start,
+                                    verticalAlignment: WrapCrossAlignment.start,
+                                  ),
                                 ),
                               ],
                             ),
@@ -188,18 +193,20 @@ class _Therapyquiz1WidgetState extends State<Therapyquiz1Widget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 32.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed(
-                          'therapy3',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      },
+                      onPressed: true
+                          ? null
+                          : () async {
+                              context.pushNamed(
+                                'therapy3',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: const TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                  ),
+                                },
+                              );
+                            },
                       text: 'back',
                       options: FFButtonOptions(
                         width: 100.0,
@@ -227,18 +234,30 @@ class _Therapyquiz1WidgetState extends State<Therapyquiz1Widget>
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(35.0, 32.0, 0.0, 32.0),
                     child: FFButtonWidget(
-                      onPressed: () async {
-                        context.pushNamed(
-                          'therapyquiz2',
-                          extra: <String, dynamic>{
-                            kTransitionInfoKey: const TransitionInfo(
-                              hasTransition: true,
-                              transitionType: PageTransitionType.fade,
-                              duration: Duration(milliseconds: 0),
-                            ),
-                          },
-                        );
-                      },
+                      onPressed: (_model.radioButtonValue == 'null')
+                          ? null
+                          : () async {
+                              context.pushNamed(
+                                'therapyquiz2',
+                                extra: <String, dynamic>{
+                                  kTransitionInfoKey: const TransitionInfo(
+                                    hasTransition: true,
+                                    transitionType: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                  ),
+                                },
+                              );
+
+                              setState(() {
+                                FFAppState().updateAnswersAtIndex(
+                                  0,
+                                  (_) => _model.radioButtonValue!,
+                                );
+                              });
+                              setState(() {
+                                FFAppState().addToAnswers('null');
+                              });
+                            },
                       text: 'next',
                       options: FFButtonOptions(
                         width: 230.0,
@@ -259,6 +278,7 @@ class _Therapyquiz1WidgetState extends State<Therapyquiz1Widget>
                           width: 1.0,
                         ),
                         borderRadius: BorderRadius.circular(40.0),
+                        disabledColor: FlutterFlowTheme.of(context).alternate,
                       ),
                     ),
                   ),
