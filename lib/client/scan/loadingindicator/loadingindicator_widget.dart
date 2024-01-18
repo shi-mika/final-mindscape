@@ -99,7 +99,32 @@ class _LoadingindicatorWidgetState extends State<LoadingindicatorWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('disgust');
+                                context.pushNamed('angry');
+                              },
+                              child: Text(
+                                'angry',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Readex Pro',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      fontSize: 40.0,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Flexible(
+                          child: Align(
+                            alignment: const AlignmentDirectional(1.0, -1.0),
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('neutral');
                               },
                               child: Text(
                                 'Neutral',
@@ -164,10 +189,10 @@ class _LoadingindicatorWidgetState extends State<LoadingindicatorWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('happy');
+                                context.pushNamed('disgust');
                               },
                               child: Text(
-                                'happy',
+                                'disgust',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

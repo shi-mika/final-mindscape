@@ -1,5 +1,4 @@
 import '/auth/firebase_auth/auth_util.dart';
-import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -129,57 +128,17 @@ class _TrackWidgetState extends State<TrackWidget> {
                                       child: Builder(
                                         builder: (context) {
                                           if (currentUserPhoto != '') {
-                                            return StreamBuilder<
-                                                List<UsersRecord>>(
-                                              stream: queryUsersRecord(
-                                                singleRecord: true,
+                                            return Container(
+                                              width: 120.0,
+                                              height: 120.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
                                               ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                }
-                                                List<UsersRecord>
-                                                    circleImageUsersRecordList =
-                                                    snapshot.data!;
-                                                // Return an empty Container when the item does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final circleImageUsersRecord =
-                                                    circleImageUsersRecordList
-                                                            .isNotEmpty
-                                                        ? circleImageUsersRecordList
-                                                            .first
-                                                        : null;
-                                                return Container(
-                                                  width: 120.0,
-                                                  height: 120.0,
-                                                  clipBehavior: Clip.antiAlias,
-                                                  decoration: const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: Image.network(
-                                                    currentUserPhoto,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                );
-                                              },
+                                              child: Image.network(
+                                                currentUserPhoto,
+                                                fit: BoxFit.cover,
+                                              ),
                                             );
                                           } else {
                                             return Container(

@@ -1,7 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/client/therapy/emptytherapy/emptytherapy_widget.dart';
-import '/client/therapy/history_therapy/history_therapy_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:webviewx_plus/webviewx_plus.dart';
 import 'therapy_client_model.dart';
 export 'therapy_client_model.dart';
 
@@ -171,60 +169,6 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Align(
-                                          alignment:
-                                              const AlignmentDirectional(1.0, 0.0),
-                                          child: Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    100.0, 0.0, 0.0, 0.0),
-                                            child: FlutterFlowIconButton(
-                                              borderColor: Colors.transparent,
-                                              borderRadius: 30.0,
-                                              borderWidth: 1.0,
-                                              buttonSize: 40.0,
-                                              icon: Icon(
-                                                Icons.sticky_note_2,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                size: 30.0,
-                                              ),
-                                              onPressed: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  enableDrag: false,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return WebViewAware(
-                                                        child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            const HistoryTherapyWidget(),
-                                                      ),
-                                                    ));
-                                                  },
-                                                ).then((value) =>
-                                                    safeSetState(() {}));
-                                              },
-                                            ),
-                                          ),
-                                        ),
                                         Flexible(
                                           child: Align(
                                             alignment:
@@ -646,7 +590,7 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                           alignment: const AlignmentDirectional(-1.0, 0.0),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 15.0, 0.0, 0.0),
+                                0.0, 15.0, 5.0, 0.0),
                             child: Container(
                               width: 436.0,
                               height: 572.0,
@@ -695,7 +639,7 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                           wrapTherapyRecordList[wrapIndex];
                                       return Padding(
                                         padding: const EdgeInsetsDirectional.fromSTEB(
-                                            15.0, 0.0, 15.0, 0.0),
+                                            15.0, 0.0, 15.0, 10.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -714,6 +658,23 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                 'pageref': wrapTherapyRecord,
                                               },
                                             );
+
+                                            await CbtTechniqueRecord.collection
+                                                .doc()
+                                                .set({
+                                              ...createCbtTechniqueRecordData(
+                                                uid: currentUserReference?.id,
+                                                cbtName: wrapTherapyRecord.name,
+                                              ),
+                                              ...mapToFirestore(
+                                                {
+                                                  'date': FieldValue
+                                                      .serverTimestamp(),
+                                                  'category': wrapTherapyRecord
+                                                      .category,
+                                                },
+                                              ),
+                                            });
                                           },
                                           child: Container(
                                             width: 170.0,
@@ -748,7 +709,8 @@ class _TherapyClientWidgetState extends State<TherapyClientWidget> {
                                                                         8.0),
                                                             child:
                                                                 Image.network(
-                                                              'https://images.unsplash.com/photo-1588001832198-c15cff59b078?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHw1fHxzdW5zZXR8ZW58MHx8fHwxNzA0NDc5Mzk2fDA&ixlib=rb-4.0.3&q=80&w=1080',
+                                                              wrapTherapyRecord
+                                                                  .cover,
                                                               width: double
                                                                   .infinity,
                                                               height: double

@@ -154,6 +154,41 @@ class FFAppState extends ChangeNotifier {
     _isFavorite = value;
   }
 
+  String _updatedImage = '';
+  String get updatedImage => _updatedImage;
+  set updatedImage(String value) {
+    _updatedImage = value;
+  }
+
+  List<int> _values = [0, 0, 0, 0, 0];
+  List<int> get values => _values;
+  set values(List<int> value) {
+    _values = value;
+  }
+
+  void addToValues(int value) {
+    _values.add(value);
+  }
+
+  void removeFromValues(int value) {
+    _values.remove(value);
+  }
+
+  void removeAtIndexFromValues(int index) {
+    _values.removeAt(index);
+  }
+
+  void updateValuesAtIndex(
+    int index,
+    int Function(int) updateFn,
+  ) {
+    _values[index] = updateFn(_values[index]);
+  }
+
+  void insertAtIndexInValues(int index, int value) {
+    _values.insert(index, value);
+  }
+
   final _userDocQueryManager = FutureRequestManager<UsersRecord>();
   Future<UsersRecord> userDocQuery({
     String? uniqueQueryKey,

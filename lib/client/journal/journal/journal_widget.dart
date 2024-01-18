@@ -78,6 +78,7 @@ class _JournalWidgetState extends State<JournalWidget> {
               Align(
                 alignment: const AlignmentDirectional(0.0, 0.0),
                 child: SingleChildScrollView(
+                  primary: false,
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -377,6 +378,7 @@ class _JournalWidgetState extends State<JournalWidget> {
                           height: 430.0,
                           decoration: const BoxDecoration(),
                           child: SingleChildScrollView(
+                            primary: false,
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.start,

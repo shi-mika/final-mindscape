@@ -17,7 +17,12 @@ import 'communities_model.dart';
 export 'communities_model.dart';
 
 class CommunitiesWidget extends StatefulWidget {
-  const CommunitiesWidget({super.key});
+  const CommunitiesWidget({
+    super.key,
+    this.postId,
+  });
+
+  final String? postId;
 
   @override
   _CommunitiesWidgetState createState() => _CommunitiesWidgetState();
@@ -259,7 +264,7 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                 queryBuilder: (communityRecord) =>
                                     communityRecord.orderBy('date',
                                         descending: true),
-                                limit: 4,
+                                limit: 10,
                               ),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
@@ -301,7 +306,7 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                           Padding(
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 12.0, 16.0, 0.0),
+                                                    0.0, 12.0, 0.0, 0.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -479,7 +484,17 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                                                   .viewInsetsOf(
                                                                       context),
                                                               child:
-                                                                  const EditoptionWidget(),
+                                                                  EditoptionWidget(
+                                                                editjournal:
+                                                                    listViewCommunityRecord
+                                                                        .reference,
+                                                                imagePathtoUpdatePost:
+                                                                    listViewCommunityRecord
+                                                                        .photoPost,
+                                                                deletepost:
+                                                                    listViewCommunityRecord
+                                                                        .reference,
+                                                              ),
                                                             ),
                                                           ));
                                                         },
@@ -501,8 +516,11 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                                       .fromSTEB(
                                                           0.0, 15.0, 16.0, 0.0),
                                                   child: Text(
-                                                    listViewCommunityRecord
-                                                        .postTitle,
+                                                    valueOrDefault<String>(
+                                                      listViewCommunityRecord
+                                                          .postTitle,
+                                                      'Loading...',
+                                                    ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .headlineMedium
@@ -526,7 +544,11 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                                   .fromSTEB(
                                                       0.0, 10.0, 16.0, 0.0),
                                               child: Text(
-                                                listViewCommunityRecord.content,
+                                                valueOrDefault<String>(
+                                                  listViewCommunityRecord
+                                                      .content,
+                                                  '-',
+                                                ),
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .labelMedium
@@ -593,52 +615,104 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                           Row(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              ToggleIcon(
-                                                onPressed: () async {
-                                                  await listViewCommunityRecord
-                                                      .reference
-                                                      .update({
-                                                    ...mapToFirestore(
-                                                      {
-                                                        'liked':
-                                                            !listViewCommunityRecord
-                                                                .liked,
-                                                      },
-                                                    ),
-                                                  });
-                                                  if (FFAppState().isFavorite) {
-                                                    setState(() {
-                                                      FFAppState().addToUsersLiked(
-                                                          currentUserReference!
-                                                              .id);
-                                                    });
-                                                  } else {
-                                                    while (FFAppState()
-                                                        .usersLiked
-                                                        .contains(
-                                                            '${currentUserReference?.id}')) {
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .removeFromUsersLiked(
-                                                                '${currentUserReference?.id}');
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  ToggleIcon(
+                                                    onPressed: () async {
+                                                      final likedByElement =
+                                                          currentUserReference;
+                                                      final likedByUpdate =
+                                                          listViewCommunityRecord
+                                                                  .likedBy
+                                                                  .contains(
+                                                                      likedByElement)
+                                                              ? FieldValue
+                                                                  .arrayRemove([
+                                                                  likedByElement
+                                                                ])
+                                                              : FieldValue
+                                                                  .arrayUnion([
+                                                                  likedByElement
+                                                                ]);
+                                                      await listViewCommunityRecord
+                                                          .reference
+                                                          .update({
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'liked_by':
+                                                                likedByUpdate,
+                                                          },
+                                                        ),
                                                       });
-                                                    }
-                                                  }
-                                                },
-                                                value: listViewCommunityRecord
-                                                    .liked,
-                                                onIcon: const FaIcon(
-                                                  FontAwesomeIcons.solidHeart,
-                                                  color: Color(0xFFF20808),
-                                                  size: 25.0,
-                                                ),
-                                                offIcon: FaIcon(
-                                                  FontAwesomeIcons.heart,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 25.0,
-                                                ),
+                                                      if (_model.isLiked) {
+                                                        await listViewCommunityRecord
+                                                            .reference
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'users_liked':
+                                                                  FieldValue
+                                                                      .arrayUnion([
+                                                                currentUserUid
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                      } else {
+                                                        await listViewCommunityRecord
+                                                            .reference
+                                                            .update({
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'users_liked':
+                                                                  FieldValue
+                                                                      .arrayRemove([
+                                                                currentUserUid
+                                                              ]),
+                                                            },
+                                                          ),
+                                                        });
+                                                      }
+                                                    },
+                                                    value: listViewCommunityRecord
+                                                        .likedBy
+                                                        .contains(
+                                                            currentUserReference),
+                                                    onIcon: const FaIcon(
+                                                      FontAwesomeIcons
+                                                          .solidHeart,
+                                                      color: Color(0xFFF20808),
+                                                      size: 25.0,
+                                                    ),
+                                                    offIcon: FaIcon(
+                                                      FontAwesomeIcons.heart,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryText,
+                                                      size: 25.0,
+                                                    ),
+                                                  ),
+                                                  if (listViewCommunityRecord
+                                                          .likedBy.isNotEmpty)
+                                                    Align(
+                                                      alignment:
+                                                          const AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Text(
+                                                        listViewCommunityRecord
+                                                            .likedBy.length
+                                                            .toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium,
+                                                      ),
+                                                    ),
+                                                ],
                                               ),
                                               FlutterFlowIconButton(
                                                 borderRadius: 20.0,
@@ -702,8 +776,21 @@ class _CommunitiesWidgetState extends State<CommunitiesWidget> {
                                                     size: 25.0,
                                                   ),
                                                   onPressed: () async {
+                                                    _model.currentPageLink =
+                                                        await generateCurrentPageLink(
+                                                      context,
+                                                      title:
+                                                          '${listViewCommunityRecord.userCreater} posted in the Community: ${listViewCommunityRecord.postTitle}',
+                                                      imageUrl:
+                                                          listViewCommunityRecord
+                                                              .photoPost,
+                                                      description:
+                                                          listViewCommunityRecord
+                                                              .content,
+                                                    );
+
                                                     await Share.share(
-                                                      '',
+                                                      _model.currentPageLink,
                                                       sharePositionOrigin:
                                                           getWidgetBoundingBox(
                                                               context),

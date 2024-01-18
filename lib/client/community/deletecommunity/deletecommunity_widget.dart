@@ -10,7 +10,12 @@ import 'deletecommunity_model.dart';
 export 'deletecommunity_model.dart';
 
 class DeletecommunityWidget extends StatefulWidget {
-  const DeletecommunityWidget({super.key});
+  const DeletecommunityWidget({
+    super.key,
+    this.postdelete,
+  });
+
+  final DocumentReference? postdelete;
 
   @override
   _DeletecommunityWidgetState createState() => _DeletecommunityWidgetState();
@@ -108,8 +113,22 @@ class _DeletecommunityWidgetState extends State<DeletecommunityWidget> {
                           : null;
                   return FFButtonWidget(
                     onPressed: () async {
-                      await buttonCommunityRecord!.reference.delete();
+                      await widget.postdelete!.delete();
                       Navigator.pop(context);
+                      Navigator.pop(context);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'post deleted!',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: const Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
 
                       context.pushNamed('communities');
                     },
@@ -141,7 +160,7 @@ class _DeletecommunityWidgetState extends State<DeletecommunityWidget> {
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
               child: FFButtonWidget(
                 onPressed: () async {
-                  context.pop();
+                  context.goNamed('communities');
                 },
                 text: 'Cancel',
                 options: FFButtonOptions(

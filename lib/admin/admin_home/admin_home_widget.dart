@@ -526,6 +526,7 @@ class _AdminHomeWidgetState extends State<AdminHomeWidget>
                       ),
                     ),
                     child: SingleChildScrollView(
+                      primary: false,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,

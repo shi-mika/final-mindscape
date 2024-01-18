@@ -1,5 +1,5 @@
 import '/client/community/deletecommunity/deletecommunity_widget.dart';
-import '/components/create_copy_widget.dart';
+import '/client/community/updatepost/updatepost_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,16 @@ import 'editoption_model.dart';
 export 'editoption_model.dart';
 
 class EditoptionWidget extends StatefulWidget {
-  const EditoptionWidget({super.key});
+  const EditoptionWidget({
+    super.key,
+    required this.editjournal,
+    this.imagePathtoUpdatePost,
+    this.deletepost,
+  });
+
+  final DocumentReference? editjournal;
+  final String? imagePathtoUpdatePost;
+  final DocumentReference? deletepost;
 
   @override
   _EditoptionWidgetState createState() => _EditoptionWidgetState();
@@ -87,7 +96,10 @@ class _EditoptionWidgetState extends State<EditoptionWidget> {
                         return WebViewAware(
                             child: Padding(
                           padding: MediaQuery.viewInsetsOf(context),
-                          child: const CreateCopyWidget(),
+                          child: UpdatepostWidget(
+                            pageref: widget.editjournal!,
+                            origPhotopost: widget.imagePathtoUpdatePost!,
+                          ),
                         ));
                       },
                     ).then((value) => safeSetState(() {}));
@@ -147,7 +159,9 @@ class _EditoptionWidgetState extends State<EditoptionWidget> {
                       return WebViewAware(
                           child: Padding(
                         padding: MediaQuery.viewInsetsOf(context),
-                        child: const DeletecommunityWidget(),
+                        child: DeletecommunityWidget(
+                          postdelete: widget.deletepost,
+                        ),
                       ));
                     },
                   ).then((value) => safeSetState(() {}));

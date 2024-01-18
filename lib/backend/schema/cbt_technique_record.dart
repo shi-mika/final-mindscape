@@ -25,21 +25,21 @@ class CbtTechniqueRecord extends FirestoreRecord {
   String get cbtName => _cbtName ?? '';
   bool hasCbtName() => _cbtName != null;
 
-  // "category" field.
-  String? _category;
-  String get category => _category ?? '';
-  bool hasCategory() => _category != null;
-
   // "date" field.
   DateTime? _date;
   DateTime? get date => _date;
   bool hasDate() => _date != null;
 
+  // "category" field.
+  List<String>? _category;
+  List<String> get category => _category ?? const [];
+  bool hasCategory() => _category != null;
+
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _cbtName = snapshotData['cbt_name'] as String?;
-    _category = snapshotData['category'] as String?;
     _date = snapshotData['date'] as DateTime?;
+    _category = getDataList(snapshotData['category']);
   }
 
   static CollectionReference get collection =>
@@ -79,14 +79,12 @@ class CbtTechniqueRecord extends FirestoreRecord {
 Map<String, dynamic> createCbtTechniqueRecordData({
   String? uid,
   String? cbtName,
-  String? category,
   DateTime? date,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'uid': uid,
       'cbt_name': cbtName,
-      'category': category,
       'date': date,
     }.withoutNulls,
   );
@@ -100,15 +98,16 @@ class CbtTechniqueRecordDocumentEquality
 
   @override
   bool equals(CbtTechniqueRecord? e1, CbtTechniqueRecord? e2) {
+    const listEquality = ListEquality();
     return e1?.uid == e2?.uid &&
         e1?.cbtName == e2?.cbtName &&
-        e1?.category == e2?.category &&
-        e1?.date == e2?.date;
+        e1?.date == e2?.date &&
+        listEquality.equals(e1?.category, e2?.category);
   }
 
   @override
   int hash(CbtTechniqueRecord? e) =>
-      const ListEquality().hash([e?.uid, e?.cbtName, e?.category, e?.date]);
+      const ListEquality().hash([e?.uid, e?.cbtName, e?.date, e?.category]);
 
   @override
   bool isValidKey(Object? o) => o is CbtTechniqueRecord;

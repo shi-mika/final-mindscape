@@ -1,6 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/client/journal/emptyjournal/emptyjournal_widget.dart';
+import '/client/community/emptycomment/emptycomment_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -98,6 +98,7 @@ class _Comment2WidgetState extends State<Comment2Widget> {
             Align(
               alignment: const AlignmentDirectional(0.0, -1.0),
               child: SingleChildScrollView(
+                primary: false,
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,7 +109,7 @@ class _Comment2WidgetState extends State<Comment2Widget> {
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16.0, 16.0, 16.0, 12.0),
+                                16.0, 0.0, 16.0, 40.0),
                             child: StreamBuilder<List<Comment2Record>>(
                               stream: queryComment2Record(
                                 queryBuilder: (comment2Record) => comment2Record
@@ -139,7 +140,7 @@ class _Comment2WidgetState extends State<Comment2Widget> {
                                     listViewComment2RecordList = snapshot.data!;
                                 if (listViewComment2RecordList.isEmpty) {
                                   return const Center(
-                                    child: EmptyjournalWidget(),
+                                    child: EmptycommentWidget(),
                                   );
                                 }
                                 return ListView.builder(

@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -533,16 +532,20 @@ class _CreateWidgetState extends State<CreateWidget>
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10.0),
-                                                  child: CachedNetworkImage(
-                                                    fadeInDuration: const Duration(
-                                                        milliseconds: 500),
-                                                    fadeOutDuration: const Duration(
-                                                        milliseconds: 500),
-                                                    imageUrl:
-                                                        _model.uploadedFileUrl,
+                                                  child: Image.network(
+                                                    _model.uploadedFileUrl,
                                                     width: double.infinity,
                                                     height: double.infinity,
                                                     fit: BoxFit.cover,
+                                                    errorBuilder: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        Image.asset(
+                                                      'assets/images/error_image.png',
+                                                      width: double.infinity,
+                                                      height: double.infinity,
+                                                      fit: BoxFit.cover,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
@@ -734,8 +737,6 @@ class _CreateWidgetState extends State<CreateWidget>
                                               photoPost: _model.uploadedFileUrl,
                                               userCreater:
                                                   _model.byController.text,
-                                              photoId: currentUserPhoto,
-                                              liked: false,
                                               day: functions
                                                   .newCustomDayFunction(),
                                             ),
@@ -746,6 +747,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                               },
                                             ),
                                           });
+                                          Navigator.pop(context);
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(
                                             SnackBar(
@@ -765,7 +767,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                             ),
                                           );
 
-                                          context.pushNamed('communities');
+                                          context.goNamed('communities');
                                         },
                                         text: 'Post',
                                         options: FFButtonOptions(

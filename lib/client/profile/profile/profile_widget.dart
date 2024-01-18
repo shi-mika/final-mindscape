@@ -465,6 +465,10 @@ class _ProfileWidgetState extends State<ProfileWidget>
                         await authManager.signOut();
                         GoRouter.of(context).clearRedirectLocation();
 
+                        setState(() {
+                          FFAppState().isFavorite = false;
+                        });
+
                         context.pushNamedAuth('Login', context.mounted);
                       },
                       text: 'Log Out',

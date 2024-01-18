@@ -138,20 +138,125 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                           const EdgeInsetsDirectional.fromSTEB(0.0, 44.0, 0.0, 0.0),
                       child: FFButtonWidget(
                         onPressed: () async {
-                          context.goNamed(
-                            'home',
-                            extra: <String, dynamic>{
-                              kTransitionInfoKey: const TransitionInfo(
-                                hasTransition: true,
-                                transitionType: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 0),
-                              ),
-                            },
-                          );
+                          setState(() {
+                            FFAppState().updateValuesAtIndex(
+                              0,
+                              (_) => () {
+                                if (FFAppState().answers[0] ==
+                                    'Rare, less than a day or two') {
+                                  return 1;
+                                } else if (FFAppState().answers[0] ==
+                                    'Several days') {
+                                  return 2;
+                                } else if (FFAppState().answers[0] ==
+                                    'More than half the days') {
+                                  return 3;
+                                } else if (FFAppState().answers[0] ==
+                                    'Nearly every day') {
+                                  return 4;
+                                } else {
+                                  return 0;
+                                }
+                              }(),
+                            );
+                          });
+                          setState(() {
+                            FFAppState().updateValuesAtIndex(
+                              1,
+                              (_) => () {
+                                if (FFAppState().answers[1] ==
+                                    'Rare, less than a day or two') {
+                                  return 1;
+                                } else if (FFAppState().answers[1] ==
+                                    'Several days') {
+                                  return 2;
+                                } else if (FFAppState().answers[1] ==
+                                    'More than half the days') {
+                                  return 3;
+                                } else if (FFAppState().answers[1] ==
+                                    'Nearly every day') {
+                                  return 4;
+                                } else {
+                                  return 0;
+                                }
+                              }(),
+                            );
+                          });
+                          setState(() {
+                            FFAppState().updateValuesAtIndex(
+                              2,
+                              (_) => () {
+                                if (FFAppState().answers[2] ==
+                                    'Rare, less than a day or two') {
+                                  return 1;
+                                } else if (FFAppState().answers[2] ==
+                                    'Several days') {
+                                  return 2;
+                                } else if (FFAppState().answers[2] ==
+                                    'More than half the days') {
+                                  return 3;
+                                } else if (FFAppState().answers[2] ==
+                                    'Nearly every day') {
+                                  return 4;
+                                } else {
+                                  return 0;
+                                }
+                              }(),
+                            );
+                          });
+                          setState(() {
+                            FFAppState().updateValuesAtIndex(
+                              3,
+                              (_) => () {
+                                if (FFAppState().answers[3] ==
+                                    'Rare, less than a day or two') {
+                                  return 1;
+                                } else if (FFAppState().answers[3] ==
+                                    'Several days') {
+                                  return 2;
+                                } else if (FFAppState().answers[3] ==
+                                    'More than half the days') {
+                                  return 3;
+                                } else if (FFAppState().answers[3] ==
+                                    'Nearly every day') {
+                                  return 4;
+                                } else {
+                                  return 0;
+                                }
+                              }(),
+                            );
+                          });
+                          setState(() {
+                            FFAppState().updateValuesAtIndex(
+                              4,
+                              (_) => () {
+                                if (FFAppState().answers[4] ==
+                                    'Rare, less than a day or two') {
+                                  return 1;
+                                } else if (FFAppState().answers[4] ==
+                                    'Several days') {
+                                  return 2;
+                                } else if (FFAppState().answers[4] ==
+                                    'More than half the days') {
+                                  return 3;
+                                } else if (FFAppState().answers[4] ==
+                                    'Nearly every day') {
+                                  return 4;
+                                } else {
+                                  return 0;
+                                }
+                              }(),
+                            );
+                          });
 
                           await AssessmentRecord.collection.doc().set({
                             ...createAssessmentRecordData(
                               uid: currentUserReference?.id,
+                              sum: FFAppState().values[0] +
+                                  FFAppState().values[1] +
+                                  FFAppState().values[2] +
+                                  FFAppState().values[3] +
+                                  FFAppState().values[4],
                             ),
                             ...mapToFirestore(
                               {
@@ -160,6 +265,8 @@ class _SuccessPageWidgetState extends State<SuccessPageWidget> {
                               },
                             ),
                           });
+
+                          context.goNamed('home');
                         },
                         text: 'Go Home',
                         options: FFButtonOptions(

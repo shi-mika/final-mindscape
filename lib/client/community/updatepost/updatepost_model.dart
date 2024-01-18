@@ -3,6 +3,10 @@ import 'updatepost_widget.dart' show UpdatepostWidget;
 import 'package:flutter/material.dart';
 
 class UpdatepostModel extends FlutterFlowModel<UpdatepostWidget> {
+  ///  Local state fields for this component.
+
+  String viewImage = 'true';
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();

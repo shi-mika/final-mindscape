@@ -6,6 +6,7 @@ import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class AssessmentRecord extends FirestoreRecord {
   AssessmentRecord._(
@@ -30,10 +31,22 @@ class AssessmentRecord extends FirestoreRecord {
   List<String> get result => _result ?? const [];
   bool hasResult() => _result != null;
 
+  // "values" field.
+  List<int>? _values;
+  List<int> get values => _values ?? const [];
+  bool hasValues() => _values != null;
+
+  // "sum" field.
+  int? _sum;
+  int get sum => _sum ?? 0;
+  bool hasSum() => _sum != null;
+
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _date = snapshotData['date'] as DateTime?;
     _result = getDataList(snapshotData['result']);
+    _values = getDataList(snapshotData['values']);
+    _sum = castToType<int>(snapshotData['sum']);
   }
 
   static CollectionReference get collection =>
@@ -73,11 +86,13 @@ class AssessmentRecord extends FirestoreRecord {
 Map<String, dynamic> createAssessmentRecordData({
   String? uid,
   DateTime? date,
+  int? sum,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'uid': uid,
       'date': date,
+      'sum': sum,
     }.withoutNulls,
   );
 
@@ -92,12 +107,14 @@ class AssessmentRecordDocumentEquality implements Equality<AssessmentRecord> {
     const listEquality = ListEquality();
     return e1?.uid == e2?.uid &&
         e1?.date == e2?.date &&
-        listEquality.equals(e1?.result, e2?.result);
+        listEquality.equals(e1?.result, e2?.result) &&
+        listEquality.equals(e1?.values, e2?.values) &&
+        e1?.sum == e2?.sum;
   }
 
   @override
-  int hash(AssessmentRecord? e) =>
-      const ListEquality().hash([e?.uid, e?.date, e?.result]);
+  int hash(AssessmentRecord? e) => const ListEquality()
+      .hash([e?.uid, e?.date, e?.result, e?.values, e?.sum]);
 
   @override
   bool isValidKey(Object? o) => o is AssessmentRecord;

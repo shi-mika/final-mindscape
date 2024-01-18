@@ -1,16 +1,11 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'communities_widget.dart' show CommunitiesWidget;
+import 'neutral_widget.dart' show NeutralWidget;
 import 'package:flutter/material.dart';
 
-class CommunitiesModel extends FlutterFlowModel<CommunitiesWidget> {
-  ///  Local state fields for this page.
-
-  bool isLiked = false;
-
+class NeutralModel extends FlutterFlowModel<NeutralWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  String currentPageLink = '';
 
   /// Initialization and disposal methods.
 

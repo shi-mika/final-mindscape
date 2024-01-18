@@ -50,11 +50,6 @@ class CommunityRecord extends FirestoreRecord {
   String get photoId => _photoId ?? '';
   bool hasPhotoId() => _photoId != null;
 
-  // "liked" field.
-  bool? _liked;
-  bool get liked => _liked ?? false;
-  bool hasLiked() => _liked != null;
-
   // "users_liked" field.
   List<String>? _usersLiked;
   List<String> get usersLiked => _usersLiked ?? const [];
@@ -65,6 +60,11 @@ class CommunityRecord extends FirestoreRecord {
   String get day => _day ?? '';
   bool hasDay() => _day != null;
 
+  // "liked_by" field.
+  List<DocumentReference>? _likedBy;
+  List<DocumentReference> get likedBy => _likedBy ?? const [];
+  bool hasLikedBy() => _likedBy != null;
+
   void _initializeFields() {
     _uid = snapshotData['uid'] as String?;
     _content = snapshotData['content'] as String?;
@@ -73,9 +73,9 @@ class CommunityRecord extends FirestoreRecord {
     _photoPost = snapshotData['photoPost'] as String?;
     _userCreater = snapshotData['user_creater'] as String?;
     _photoId = snapshotData['photo_id'] as String?;
-    _liked = snapshotData['liked'] as bool?;
     _usersLiked = getDataList(snapshotData['users_liked']);
     _day = snapshotData['day'] as String?;
+    _likedBy = getDataList(snapshotData['liked_by']);
   }
 
   static CollectionReference get collection =>
@@ -120,7 +120,6 @@ Map<String, dynamic> createCommunityRecordData({
   String? photoPost,
   String? userCreater,
   String? photoId,
-  bool? liked,
   String? day,
 }) {
   final firestoreData = mapToFirestore(
@@ -132,7 +131,6 @@ Map<String, dynamic> createCommunityRecordData({
       'photoPost': photoPost,
       'user_creater': userCreater,
       'photo_id': photoId,
-      'liked': liked,
       'day': day,
     }.withoutNulls,
   );
@@ -153,9 +151,9 @@ class CommunityRecordDocumentEquality implements Equality<CommunityRecord> {
         e1?.photoPost == e2?.photoPost &&
         e1?.userCreater == e2?.userCreater &&
         e1?.photoId == e2?.photoId &&
-        e1?.liked == e2?.liked &&
         listEquality.equals(e1?.usersLiked, e2?.usersLiked) &&
-        e1?.day == e2?.day;
+        e1?.day == e2?.day &&
+        listEquality.equals(e1?.likedBy, e2?.likedBy);
   }
 
   @override
@@ -167,9 +165,9 @@ class CommunityRecordDocumentEquality implements Equality<CommunityRecord> {
         e?.photoPost,
         e?.userCreater,
         e?.photoId,
-        e?.liked,
         e?.usersLiked,
-        e?.day
+        e?.day,
+        e?.likedBy
       ]);
 
   @override

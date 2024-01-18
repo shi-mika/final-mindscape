@@ -1,11 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/client/home/history/history_widget.dart';
-import '/components/routine_widget.dart';
+import '/client/home/routine/routine_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -93,6 +94,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 0.0, 55.0, 0.0, 0.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -168,36 +170,45 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     ),
                                   ],
                                 ),
-                                Flexible(
-                                  child: Align(
-                                    alignment: const AlignmentDirectional(1.0, 0.0),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 15.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Flexible(
-                                          child: Align(
-                                            alignment:
-                                                const AlignmentDirectional(1.0, 0.0),
-                                            child: Padding(
-                                              padding: const EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 20.0, 0.0),
-                                              child: FlutterFlowIconButton(
-                                                borderColor: Colors.transparent,
-                                                borderRadius: 30.0,
-                                                buttonSize: 40.0,
-                                                icon: Icon(
-                                                  Icons.account_circle,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
+                                          child: FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30.0,
+                                            buttonSize: 40.0,
+                                            icon: Icon(
+                                              Icons.sticky_note_2,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
                                                       .primaryText,
-                                                  size: 30.0,
-                                                ),
-                                                onPressed: () async {
-                                                  context.pushNamed('profile');
-                                                },
-                                              ),
+                                              size: 30.0,
                                             ),
+                                            onPressed: () async {
+                                              context.pushNamed('therapy1');
+                                            },
+                                          ),
+                                        ),
+                                        Flexible(
+                                          child: FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            buttonSize: 40.0,
+                                            icon: Icon(
+                                              Icons.account_circle,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 30.0,
+                                            ),
+                                            onPressed: () async {
+                                              context.pushNamed('profile');
+                                            },
                                           ),
                                         ),
                                       ],
@@ -378,494 +389,424 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             padding:
                                                 const EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 15.0, 0.0, 0.0),
-                                            child: StreamBuilder<
-                                                List<EmotionRecord>>(
-                                              stream: queryEmotionRecord(
-                                                singleRecord: true,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        valueColor:
-                                                            AlwaysStoppedAnimation<
-                                                                Color>(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                        ),
-                                                      ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          45.0, 0.0, 18.0, 0.0),
+                                                  child: Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      shape: BoxShape.circle,
                                                     ),
-                                                  );
-                                                }
-                                                List<EmotionRecord>
-                                                    rowEmotionRecordList =
-                                                    snapshot.data!;
-                                                // Return an empty Container when the item does not exist.
-                                                if (snapshot.data!.isEmpty) {
-                                                  return Container();
-                                                }
-                                                final rowEmotionRecord =
-                                                    rowEmotionRecordList
-                                                            .isNotEmpty
-                                                        ? rowEmotionRecordList
-                                                            .first
-                                                        : null;
-                                                return Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  45.0,
-                                                                  0.0,
-                                                                  18.0,
-                                                                  0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'loadingindicatorhome');
+
+                                                        await EmotionRecord
+                                                            .collection
+                                                            .doc()
+                                                            .set({
+                                                          ...createEmotionRecordData(
+                                                            uid: currentUserUid,
+                                                            emotion: 'angry',
+                                                            day: functions
+                                                                .newCustomDayFunction(),
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'date': FieldValue
+                                                                  .serverTimestamp(),
+                                                            },
+                                                          ),
+                                                        });
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Successfully added!',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    1800),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
+                                                        );
+
+                                                        context
+                                                            .pushNamed('home');
+                                                      },
                                                       child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
                                                         decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
+                                                            const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                                'loadingindicatorhome');
-
-                                                            await EmotionRecord
-                                                                .collection
-                                                                .doc()
-                                                                .set({
-                                                              ...createEmotionRecordData(
-                                                                uid:
-                                                                    currentUserUid,
-                                                                emotion: 'mad',
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'date': FieldValue
-                                                                      .serverTimestamp(),
-                                                                },
-                                                              ),
-                                                            });
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Successfully added!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
-                                                                ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        1800),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-
-                                                            context.pushNamed(
-                                                                'home');
-                                                          },
-                                                          child: Container(
-                                                            clipBehavior:
-                                                                Clip.antiAlias,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Image.asset(
-                                                              'assets/images/angry.png',
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
+                                                        child: Image.asset(
+                                                          'assets/images/angry.png',
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  18.0,
-                                                                  0.0),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 18.0, 0.0),
+                                                  child: Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'loadingindicatorhome');
+
+                                                        await EmotionRecord
+                                                            .collection
+                                                            .doc()
+                                                            .set({
+                                                          ...createEmotionRecordData(
+                                                            uid: currentUserUid,
+                                                            emotion: 'sad',
+                                                            day: functions
+                                                                .newCustomDayFunction(),
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'date': FieldValue
+                                                                  .serverTimestamp(),
+                                                            },
+                                                          ),
+                                                        });
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Successfully added!',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    1800),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
+                                                        );
+
+                                                        context
+                                                            .pushNamed('home');
+                                                      },
                                                       child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
                                                         decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
+                                                            const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                                'loadingindicatorhome');
-
-                                                            await EmotionRecord
-                                                                .collection
-                                                                .doc()
-                                                                .set({
-                                                              ...createEmotionRecordData(
-                                                                uid:
-                                                                    currentUserUid,
-                                                                emotion: 'sad',
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'date': FieldValue
-                                                                      .serverTimestamp(),
-                                                                },
-                                                              ),
-                                                            });
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Successfully added!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
-                                                                ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        1800),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-
-                                                            context.pushNamed(
-                                                                'home');
-                                                          },
-                                                          child: Container(
-                                                            clipBehavior:
-                                                                Clip.antiAlias,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Image.asset(
-                                                              'assets/images/sad.png',
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
+                                                        child: Image.asset(
+                                                          'assets/images/sad.png',
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  18.0,
-                                                                  0.0),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 18.0, 0.0),
+                                                  child: Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'loadingindicatorhome');
+
+                                                        await EmotionRecord
+                                                            .collection
+                                                            .doc()
+                                                            .set({
+                                                          ...createEmotionRecordData(
+                                                            uid: currentUserUid,
+                                                            emotion: 'disgust',
+                                                            day: functions
+                                                                .newCustomDayFunction(),
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'date': FieldValue
+                                                                  .serverTimestamp(),
+                                                            },
+                                                          ),
+                                                        });
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Successfully added!',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    1800),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
+                                                        );
+
+                                                        context
+                                                            .pushNamed('home');
+                                                      },
                                                       child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
                                                         decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
+                                                            const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                                'loadingindicatorhome');
-
-                                                            await EmotionRecord
-                                                                .collection
-                                                                .doc()
-                                                                .set({
-                                                              ...createEmotionRecordData(
-                                                                uid:
-                                                                    currentUserUid,
-                                                                emotion:
-                                                                    'disgust',
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'date': FieldValue
-                                                                      .serverTimestamp(),
-                                                                },
-                                                              ),
-                                                            });
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Successfully added!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
-                                                                ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        1800),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-
-                                                            context.pushNamed(
-                                                                'home');
-                                                          },
-                                                          child: Container(
-                                                            clipBehavior:
-                                                                Clip.antiAlias,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Image.asset(
-                                                              'assets/images/disgust.png',
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
+                                                        child: Image.asset(
+                                                          'assets/images/disgust.png',
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  18.0,
-                                                                  0.0),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 18.0, 0.0),
+                                                  child: Container(
+                                                    width: 40.0,
+                                                    height: 40.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'loadingindicatorhome');
+
+                                                        await EmotionRecord
+                                                            .collection
+                                                            .doc()
+                                                            .set({
+                                                          ...createEmotionRecordData(
+                                                            uid: currentUserUid,
+                                                            emotion: 'neutral',
+                                                            day: functions
+                                                                .newCustomDayFunction(),
+                                                          ),
+                                                          ...mapToFirestore(
+                                                            {
+                                                              'date': FieldValue
+                                                                  .serverTimestamp(),
+                                                            },
+                                                          ),
+                                                        });
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                          SnackBar(
+                                                            content: Text(
+                                                              'Successfully added!',
+                                                              style: TextStyle(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText,
+                                                              ),
+                                                            ),
+                                                            duration: const Duration(
+                                                                milliseconds:
+                                                                    1800),
+                                                            backgroundColor:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
+                                                          ),
+                                                        );
+
+                                                        context
+                                                            .pushNamed('home');
+                                                      },
                                                       child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
                                                         decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
+                                                            const BoxDecoration(
                                                           shape:
                                                               BoxShape.circle,
                                                         ),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                                'loadingindicatorhome');
-
-                                                            await EmotionRecord
-                                                                .collection
-                                                                .doc()
-                                                                .set({
-                                                              ...createEmotionRecordData(
-                                                                uid:
-                                                                    currentUserUid,
-                                                                emotion:
-                                                                    'neutral',
-                                                              ),
-                                                              ...mapToFirestore(
-                                                                {
-                                                                  'date': FieldValue
-                                                                      .serverTimestamp(),
-                                                                },
-                                                              ),
-                                                            });
-                                                            ScaffoldMessenger
-                                                                    .of(context)
-                                                                .showSnackBar(
-                                                              SnackBar(
-                                                                content: Text(
-                                                                  'Successfully added!',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                  ),
-                                                                ),
-                                                                duration: const Duration(
-                                                                    milliseconds:
-                                                                        1800),
-                                                                backgroundColor:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondary,
-                                                              ),
-                                                            );
-
-                                                            context.pushNamed(
-                                                                'home');
-                                                          },
-                                                          child: Container(
-                                                            clipBehavior:
-                                                                Clip.antiAlias,
-                                                            decoration:
-                                                                const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                            child: Image.asset(
-                                                              'assets/images/neutral.png',
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          ),
+                                                        child: Image.asset(
+                                                          'assets/images/neutral.png',
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
-                                                      width: 40.0,
-                                                      height: 40.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 40.0,
+                                                  height: 40.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                          'loadingindicatorhome');
+
+                                                      await EmotionRecord
+                                                          .collection
+                                                          .doc()
+                                                          .set({
+                                                        ...createEmotionRecordData(
+                                                          uid: currentUserUid,
+                                                          emotion: 'happy',
+                                                          day: functions
+                                                              .newCustomDayFunction(),
+                                                        ),
+                                                        ...mapToFirestore(
+                                                          {
+                                                            'date': FieldValue
+                                                                .serverTimestamp(),
+                                                          },
+                                                        ),
+                                                      });
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Successfully added!',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                            ),
+                                                          ),
+                                                          duration: const Duration(
+                                                              milliseconds:
+                                                                  1800),
+                                                          backgroundColor:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .secondary,
+                                                        ),
+                                                      );
+
+                                                      context.pushNamed('home');
+                                                    },
+                                                    child: Container(
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: const BoxDecoration(
                                                         shape: BoxShape.circle,
                                                       ),
-                                                      child: InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          context.pushNamed(
-                                                              'loadingindicatorhome');
-
-                                                          await EmotionRecord
-                                                              .collection
-                                                              .doc()
-                                                              .set({
-                                                            ...createEmotionRecordData(
-                                                              uid:
-                                                                  currentUserUid,
-                                                              emotion: 'happy',
-                                                            ),
-                                                            ...mapToFirestore(
-                                                              {
-                                                                'date': FieldValue
-                                                                    .serverTimestamp(),
-                                                              },
-                                                            ),
-                                                          });
-                                                          ScaffoldMessenger.of(
-                                                                  context)
-                                                              .showSnackBar(
-                                                            SnackBar(
-                                                              content: Text(
-                                                                'Successfully added!',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                ),
-                                                              ),
-                                                              duration: const Duration(
-                                                                  milliseconds:
-                                                                      1800),
-                                                              backgroundColor:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
-                                                            ),
-                                                          );
-
-                                                          context.pushNamed(
-                                                              'home');
-                                                        },
-                                                        child: Container(
-                                                          clipBehavior:
-                                                              Clip.antiAlias,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                          ),
-                                                          child: Image.asset(
-                                                            'assets/images/joy.png',
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
+                                                      child: Image.asset(
+                                                        'assets/images/joy.png',
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                  ],
-                                                );
-                                              },
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ],

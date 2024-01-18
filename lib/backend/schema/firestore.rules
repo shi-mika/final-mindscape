@@ -12,7 +12,7 @@ service cloud.firestore {
       allow create: if true;
       allow read: if true;
       allow write: if true;
-      allow delete: if request.auth.uid == resource.data.uid;
+      allow delete: if true;
     }
 
     match /technique/{document} {
@@ -50,20 +50,6 @@ service cloud.firestore {
       allow delete: if true;
     }
 
-    match /chat_messages/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
-    match /chats/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
     match /therapy/{document} {
       allow create: if true;
       allow read: if true;
@@ -79,6 +65,20 @@ service cloud.firestore {
     }
 
     match /cbt_technique/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chat_messages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chats/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if true;

@@ -35,7 +35,7 @@ export '/client/scan/sad/sad_widget.dart' show SadWidget;
 export '/client/scan/angry/angry_widget.dart' show AngryWidget;
 export '/client/scan/disgust/disgust_widget.dart' show DisgustWidget;
 export '/client/scan/fear/fear_widget.dart' show FearWidget;
-export '/client/scan/suprise/suprise_widget.dart' show SupriseWidget;
+export '/client/scan/neutral/neutral_widget.dart' show NeutralWidget;
 export '/client/journal/greatfultodaycreate/greatfultodaycreate_widget.dart'
     show GreatfultodaycreateWidget;
 export '/client/journal/howwasyourdaycreate/howwasyourdaycreate_widget.dart'
@@ -52,23 +52,21 @@ export '/authentication/verification/verification_widget.dart'
     show VerificationWidget;
 export '/admin/admin_home/admin_home_widget.dart' show AdminHomeWidget;
 export '/mhp/mhp_home/mhp_home_widget.dart' show MhpHomeWidget;
-export '/cha_client/chat_2_details/chat2_details_widget.dart'
-    show Chat2DetailsWidget;
-export '/cha_client/chat_2_main/chat2_main_widget.dart' show Chat2MainWidget;
-export '/cha_client/chat_2_invite_users/chat2_invite_users_widget.dart'
-    show Chat2InviteUsersWidget;
-export '/cha_client/image_details/image_details_widget.dart'
-    show ImageDetailsWidget;
-export '/cha_client/mhpinvite/mhpinvite_widget.dart' show MhpinviteWidget;
-export '/mentalhealthsupp/mentalhealthsupp_widget.dart'
+export '/client/profile/mentalhealthsupp/mentalhealthsupp_widget.dart'
     show MentalhealthsuppWidget;
 export '/client/therapy/therapy_client/therapy_client_widget.dart'
     show TherapyClientWidget;
 export '/client/therapy/therapy_vid/therapy_vid_widget.dart'
     show TherapyVidWidget;
 export '/client/therapy/content2/content2_widget.dart' show Content2Widget;
-export '/mentalhealthsupp_copy/mentalhealthsupp_copy_widget.dart'
-    show MentalhealthsuppCopyWidget;
 export '/client/therapy/content3/content3_widget.dart' show Content3Widget;
 export '/client/home/breath/breath_widget.dart' show BreathWidget;
 export '/client/home/meditation/meditation_widget.dart' show MeditationWidget;
+export '/client/chat_groupwbubbles/chat_2_details/chat2_details_widget.dart'
+    show Chat2DetailsWidget;
+export '/client/chat_groupwbubbles/chat_2_main/chat2_main_widget.dart'
+    show Chat2MainWidget;
+export '/client/chat_groupwbubbles/chat_2_invite_users/chat2_invite_users_widget.dart'
+    show Chat2InviteUsersWidget;
+export '/client/chat_groupwbubbles/image_details/image_details_widget.dart'
+    show ImageDetailsWidget;
